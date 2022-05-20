@@ -49,7 +49,7 @@ const EditorPage: React.FC<IEditorPageProps> = ({ ...restProps }) => {
                     <ChapterEditor />
                 </div>
                 <div className='graph__tree-container'>
-                    {/* <GraphTree data={[]} /> */}
+                    <GraphTree data={[]} />
                 </div>
             </Row>
         </EditorPageStyled>
