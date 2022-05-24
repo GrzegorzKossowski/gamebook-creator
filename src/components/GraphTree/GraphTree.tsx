@@ -71,8 +71,8 @@ const options = {
 const events = {
     select: function (event: any) {
         var { nodes, edges } = event;
-        console.log(`nodes id: `, nodes);
-        console.log('edges', edges);
+        // console.log(`nodes id: `, nodes);
+        // console.log('edges', edges);
     },
 };
 

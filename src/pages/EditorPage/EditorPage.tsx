@@ -1,4 +1,4 @@
-import { Menu, Row } from 'antd';
+import { Col, Menu, Row } from 'antd';
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -42,15 +42,33 @@ const EditorPage: React.FC<IEditorPageProps> = ({ ...restProps }) => {
         <EditorPageStyled>
             <TopMenu />
             <Row>
-                <div className='sidebar__tree-container'>
+                <Col
+                    className='sidebar__tree-container'
+                    xs={{ span: 24, order: 2 }}
+                    md={{ span: 12, order: 2 }}
+                    lg={{ span: 10, order: 1 }}
+                    xl={{ span: 6, order: 1 }}
+                >
                     <ChaptersTree />
-                </div>
-                <div className='editor-container'>
+                </Col>
+                <Col
+                    className='editor-container'
+                    xs={{ span: 24, order: 1 }}
+                    md={{ span: 24, order: 1 }}
+                    lg={{ span: 14, order: 2 }}
+                    xl={{ span: 12, order: 2 }}
+                >
                     <ChapterEditor />
-                </div>
-                <div className='graph__tree-container'>
-                    <GraphTree data={[]} />
-                </div>
+                </Col>
+                <Col
+                    className='graph__tree-container'
+                    xs={{ span: 24, order: 3 }}
+                    md={{ span: 12, order: 3 }}
+                    lg={{ span: 24, order: 3 }}
+                    xl={{ span: 6, order: 3 }}
+                >
+                    {/* <GraphTree data={[]} /> */}
+                </Col>
             </Row>
         </EditorPageStyled>
     );

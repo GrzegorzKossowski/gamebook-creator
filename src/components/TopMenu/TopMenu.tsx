@@ -11,7 +11,9 @@ import {
     faFilePdf,
     faFileCode,
     faChartPie,
+    faBookOpen,
 } from '@fortawesome/free-solid-svg-icons';
+import ModalEditMetadata from 'components/ModalEditMetadata';
 interface TopMenuProps {}
 
 const TopMenuStyled = styled.div`
@@ -59,6 +61,12 @@ const items: MenuProps['items'] = [
                 disabled: true,
                 icon: <FontAwesomeIcon icon={faChartPie} />,
             },
+            {
+                label: 'Metadata',
+                key: 'metadata',
+                disabled: false,
+                icon: <FontAwesomeIcon icon={faBookOpen} />,
+            },
         ],
     },
     {
@@ -95,19 +103,27 @@ const items: MenuProps['items'] = [
 
 export const TopMenu: React.FC<TopMenuProps> = () => {
     const [current, setCurrent] = React.useState('mail');
+    const [isModalEditMetadataVisible, setIsModalEditMetadataVisible] =
+        React.useState(false);
 
     const onClick: MenuProps['onClick'] = e => {
         console.log('click ', e);
         setCurrent(e.key);
     };
     return (
-        <TopMenuStyled>
-            <Menu
-                onClick={onClick}
-                selectedKeys={[current]}
-                mode='horizontal'
-                items={items}
+        <>
+            <TopMenuStyled>
+                <Menu
+                    onClick={onClick}
+                    selectedKeys={[current]}
+                    mode='horizontal'
+                    items={items}
+                />
+            </TopMenuStyled>
+            <ModalEditMetadata
+                isVisible={isModalEditMetadataVisible}
+                setIsVisible={setIsModalEditMetadataVisible}
             />
-        </TopMenuStyled>
+        </>
     );
 };
