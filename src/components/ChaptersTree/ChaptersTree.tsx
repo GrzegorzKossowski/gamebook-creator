@@ -4,6 +4,16 @@ import { Input, Typography } from 'antd';
 import { useAppDispatch, useAppSelector } from 'redux/reduxHooks';
 import { setSelectedChapterId } from 'redux/gameBookSlice';
 import ChapterStatus from './ChapterStatus';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faSkullCrossbones,
+    faTrophy,
+    faPlay,
+    faCircleCheck,
+    faCircleXmark,
+    faCircleStop,
+    faThumbTack,
+} from '@fortawesome/free-solid-svg-icons';
 
 interface IChaptersTreeProps {}
 const { Text } = Typography;
@@ -32,6 +42,7 @@ const ChaptersTreeStyled = styled.div`
             padding: 5px 0;
             &:hover {
                 background-color: #222;
+                cursor: pointer;
             }
         }
         &_selected {
@@ -64,7 +75,7 @@ export const ChaptersTree: React.FC<IChaptersTreeProps> = () => {
     return (
         <ChaptersTreeStyled>
             <Input
-                placeholder='Filter paragraphs by title'
+                placeholder='Filter paragraphs by title or number'
                 size='large'
                 allowClear
                 value={searched}
