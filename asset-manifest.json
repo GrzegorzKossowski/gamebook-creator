@@ -1,29 +1,29 @@
 {
   "files": {
     "main.css": "/gamemaker/static/css/main.5bf030ed.css",
-    "main.js": "/gamemaker/static/js/main.c37c616b.js",
+    "main.js": "/gamemaker/static/js/main.824d6a0c.js",
     "static/js/236.3b659d43.chunk.js": "/gamemaker/static/js/236.3b659d43.chunk.js",
     "static/js/380.ab7b63bc.chunk.js": "/gamemaker/static/js/380.ab7b63bc.chunk.js",
-    "static/js/426.69234648.chunk.js": "/gamemaker/static/js/426.69234648.chunk.js",
+    "static/js/426.790de7f1.chunk.js": "/gamemaker/static/js/426.790de7f1.chunk.js",
     "static/js/787.3309e0f9.chunk.js": "/gamemaker/static/js/787.3309e0f9.chunk.js",
     "static/js/124.346f05ca.chunk.js": "/gamemaker/static/js/124.346f05ca.chunk.js",
     "static/js/855.36a4408f.chunk.js": "/gamemaker/static/js/855.36a4408f.chunk.js",
-    "static/js/94.7ee23d5f.chunk.js": "/gamemaker/static/js/94.7ee23d5f.chunk.js",
+    "static/js/263.529e590f.chunk.js": "/gamemaker/static/js/263.529e590f.chunk.js",
     "static/js/63.52ef0e3a.chunk.js": "/gamemaker/static/js/63.52ef0e3a.chunk.js",
     "index.html": "/gamemaker/index.html",
     "main.5bf030ed.css.map": "/gamemaker/static/css/main.5bf030ed.css.map",
-    "main.c37c616b.js.map": "/gamemaker/static/js/main.c37c616b.js.map",
+    "main.824d6a0c.js.map": "/gamemaker/static/js/main.824d6a0c.js.map",
     "236.3b659d43.chunk.js.map": "/gamemaker/static/js/236.3b659d43.chunk.js.map",
     "380.ab7b63bc.chunk.js.map": "/gamemaker/static/js/380.ab7b63bc.chunk.js.map",
-    "426.69234648.chunk.js.map": "/gamemaker/static/js/426.69234648.chunk.js.map",
+    "426.790de7f1.chunk.js.map": "/gamemaker/static/js/426.790de7f1.chunk.js.map",
     "787.3309e0f9.chunk.js.map": "/gamemaker/static/js/787.3309e0f9.chunk.js.map",
     "124.346f05ca.chunk.js.map": "/gamemaker/static/js/124.346f05ca.chunk.js.map",
     "855.36a4408f.chunk.js.map": "/gamemaker/static/js/855.36a4408f.chunk.js.map",
-    "94.7ee23d5f.chunk.js.map": "/gamemaker/static/js/94.7ee23d5f.chunk.js.map",
+    "263.529e590f.chunk.js.map": "/gamemaker/static/js/263.529e590f.chunk.js.map",
     "63.52ef0e3a.chunk.js.map": "/gamemaker/static/js/63.52ef0e3a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.5bf030ed.css",
-    "static/js/main.c37c616b.js"
+    "static/js/main.824d6a0c.js"
   ]
 }
