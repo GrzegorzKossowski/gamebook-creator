@@ -17,23 +17,23 @@ import TopMenu from 'components/TopMenu';
 interface IEditorPageProps {}
 
 const EditorPageStyled = styled.div`
-    // put some styles here
     height: 100vh;
-    /* border: 1px solid red; */
-    .sidebar__tree-container {
-        /* border: 1px solid blue; */
-        width: 25%;
-        height: calc(100vh - 86px);
-        overflow-y: hidden;
+    .editor-page_container {
+        height: calc(100% - 46px);
     }
-    .graph__tree-container {
+    .sidebar__tree-container {
         width: 25%;
-        height: calc(100vh - 86px);
-        /* background-color: #222; */
+        height: 100%;
+        overflow-y: hidden;
     }
     .editor-container {
         padding: 10px;
         width: 50%;
+        height: 100%;
+    }
+    .graph__tree-container {
+        width: 25%;
+        height: 100%;
     }
 `;
 
@@ -41,7 +41,7 @@ const EditorPage: React.FC<IEditorPageProps> = ({ ...restProps }) => {
     return (
         <EditorPageStyled>
             <TopMenu />
-            <Row>
+            <Row className='editor-page_container'>
                 <Col
                     className='sidebar__tree-container'
                     xs={{ span: 24, order: 2 }}
@@ -67,7 +67,7 @@ const EditorPage: React.FC<IEditorPageProps> = ({ ...restProps }) => {
                     lg={{ span: 24, order: 3 }}
                     xl={{ span: 6, order: 3 }}
                 >
-                    {/* <GraphTree data={[]} /> */}
+                    <GraphTree data={[]} />
                 </Col>
             </Row>
         </EditorPageStyled>

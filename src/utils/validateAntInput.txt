@@ -1,0 +1,17 @@
+({ getFieldValue }) => ({
+                                validator(_, value) {
+                                    if (
+                                        !value ||
+                                        !templateNames.includes(
+                                            getFieldValue('name')
+                                                .trim()
+                                                .toLowerCase() as never
+                                        )
+                                    ) {
+                                        return Promise.resolve();
+                                    }
+                                    return Promise.reject(
+                                        new Error(existsTemplateName)
+                                    );
+                                },
+                            }),

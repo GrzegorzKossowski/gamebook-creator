@@ -10,6 +10,7 @@ import {
     Row,
     Col,
     Radio,
+    Divider,
 } from 'antd';
 import { useAppDispatch, useAppSelector } from 'redux/reduxHooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -22,6 +23,7 @@ import {
     faCircleStop,
     faThumbTack,
 } from '@fortawesome/free-solid-svg-icons';
+import EditorMenu from './EditorMenu';
 
 interface ChapterEditorProps {}
 
@@ -65,40 +67,49 @@ export const ChapterEditor: React.FC<ChapterEditorProps> = () => {
 
     return (
         <ChapterEditorStyled>
+            <EditorMenu />
+            <Divider />
             <Form
                 form={form}
                 autoComplete='off'
-                layout='vertical'
+                // layout='vertical'
                 size='large'
                 onFinish={onFinish}
             >
                 <Row>
                     <Col>
-                        <Form.Item name='chapterNumber'>
-                            <Input/>
+                        <Form.Item name='chapterNumber' hidden>
+                            <Input />
                         </Form.Item>
                     </Col>
                     <Col>
-                        <Form.Item name='id'>
-                            <Input/>
+                        <Form.Item name='id' hidden>
+                            <Input />
                         </Form.Item>
                     </Col>
                 </Row>
-                <Form.Item label='Title' name='title'>
-                    <Input />
+                <Form.Item name='title'>
+                    <Input placeholder='Title' />
                 </Form.Item>
                 <Row gutter={16}>
                     <Col>
                         <Form.Item name='win' valuePropName='checked'>
                             <Checkbox onChange={() => {}}>
-                                <FontAwesomeIcon icon={faTrophy} /> Win ending
+                                <FontAwesomeIcon
+                                    className='faIcon'
+                                    icon={faTrophy}
+                                />{' '}
+                                Win ending
                             </Checkbox>
                         </Form.Item>
                     </Col>
                     <Col>
                         <Form.Item name='dead' valuePropName='checked'>
                             <Checkbox onChange={() => {}} value='Dead ending'>
-                                <FontAwesomeIcon icon={faSkullCrossbones} />{' '}
+                                <FontAwesomeIcon
+                                    className='faIcon'
+                                    icon={faSkullCrossbones}
+                                />{' '}
                                 Dead ending
                             </Checkbox>
                         </Form.Item>
@@ -106,29 +117,34 @@ export const ChapterEditor: React.FC<ChapterEditorProps> = () => {
                     <Col>
                         <Form.Item name='fixed' valuePropName='checked'>
                             <Checkbox onChange={() => {}} value='Fixed chapter'>
-                                <FontAwesomeIcon icon={faThumbTack} /> Fixed
-                                chapter
+                                <FontAwesomeIcon
+                                    className='faIcon'
+                                    icon={faThumbTack}
+                                />{' '}
+                                Fixed chapter
                             </Checkbox>
                         </Form.Item>
                     </Col>
                     <Col>
                         <Form.Item name='ready' valuePropName='checked'>
                             <Checkbox onChange={() => {}} value='Fixed chapter'>
-                                <FontAwesomeIcon icon={faCircleCheck} /> Is
-                                ready
+                                <FontAwesomeIcon
+                                    className='faIcon'
+                                    icon={faCircleCheck}
+                                />{' '}
+                                Is ready
                             </Checkbox>
                         </Form.Item>
                     </Col>
                 </Row>
                 <Form.Item
-                    label='Paragraph'
                     name='content'
                     className='chapter-editor_textarea'
                 >
-                    <Input.TextArea />
+                    <Input.TextArea placeholder="Paragraph's contetnt" />
                 </Form.Item>
                 <Form.Item>
-                    <Button type='primary' htmlType='submit' disabled>
+                    <Button htmlType='submit' disabled={!selectedId} block>
                         Save
                     </Button>
                 </Form.Item>

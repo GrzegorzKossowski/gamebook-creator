@@ -42,3 +42,10 @@ code {
 .test {
     border: 1px solid red;
 }
+
+.faIcon {
+    margin: 0 5px;
+}
+.ant-divider {
+    border-color: #333;
+}

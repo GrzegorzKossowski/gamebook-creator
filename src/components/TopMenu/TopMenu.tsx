@@ -14,6 +14,7 @@ import {
     faBookOpen,
 } from '@fortawesome/free-solid-svg-icons';
 import ModalEditMetadata from 'components/ModalEditMetadata';
+import ModalNewChapter from 'components/ModalNewChapter';
 interface TopMenuProps {}
 
 const TopMenuStyled = styled.div`
@@ -24,6 +25,7 @@ const items: MenuProps['items'] = [
     {
         label: 'File',
         key: 'File',
+        disabled: true,
         children: [
             {
                 label: 'New book',
@@ -46,7 +48,6 @@ const items: MenuProps['items'] = [
             {
                 label: 'Add new chapter',
                 key: 'addNewChapter',
-                disabled: true,
                 icon: <FontAwesomeIcon icon={faFileCirclePlus} />,
             },
             {
@@ -72,7 +73,7 @@ const items: MenuProps['items'] = [
     {
         label: 'Export',
         key: 'exportBook',
-        // disabled: true,
+        disabled: true,
         children: [
             {
                 label: 'Export to HTML',
@@ -102,13 +103,24 @@ const items: MenuProps['items'] = [
 ];
 
 export const TopMenu: React.FC<TopMenuProps> = () => {
-    const [current, setCurrent] = React.useState('mail');
+    const [current, setCurrent] = React.useState('');
     const [isModalEditMetadataVisible, setIsModalEditMetadataVisible] =
+        React.useState(false);
+    const [isModalNewChapterVisible, setIsModalNewChapterVisible] =
         React.useState(false);
 
     const onClick: MenuProps['onClick'] = e => {
-        console.log('click ', e);
         setCurrent(e.key);
+        switch (e.key) {
+            case 'addNewChapter':
+                setIsModalNewChapterVisible(true);
+                break;
+            case 'metadata':
+                setIsModalEditMetadataVisible(true);
+                break;
+            default:
+                break;
+        }
     };
     return (
         <>
@@ -123,6 +135,10 @@ export const TopMenu: React.FC<TopMenuProps> = () => {
             <ModalEditMetadata
                 isVisible={isModalEditMetadataVisible}
                 setIsVisible={setIsModalEditMetadataVisible}
+            />
+            <ModalNewChapter
+                isVisible={isModalNewChapterVisible}
+                setIsVisible={setIsModalNewChapterVisible}
             />
         </>
     );

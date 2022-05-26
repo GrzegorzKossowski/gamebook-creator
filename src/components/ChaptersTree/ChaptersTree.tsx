@@ -1,6 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Input, Typography } from 'antd';
+import {
+    Button,
+    Checkbox,
+    Col,
+    Form,
+    Input,
+    Modal,
+    Row,
+    Space,
+    Typography,
+} from 'antd';
 import { useAppDispatch, useAppSelector } from 'redux/reduxHooks';
 import { setSelectedChapterId } from 'redux/gameBookSlice';
 import ChapterStatus from './ChapterStatus';
@@ -13,7 +23,11 @@ import {
     faCircleXmark,
     faCircleStop,
     faThumbTack,
+    faPlusCircle,
+    faFloppyDisk,
+    faFileCirclePlus,
 } from '@fortawesome/free-solid-svg-icons';
+import ModalNewChapter from 'components/ModalNewChapter';
 
 interface IChaptersTreeProps {}
 const { Text } = Typography;
@@ -21,12 +35,11 @@ const { Text } = Typography;
 const ChaptersTreeStyled = styled.div`
     // put some styles here
     height: 100%;
-    /* border: 1px solid #444; */
     padding: 10px;
 
     .tree-list {
         overflow-y: auto;
-        height: calc(100% - 50px);
+        height: calc(100% - 100px);
         border: 1px solid #444;
         margin: 10px 0;
         list-style-type: none;
@@ -53,9 +66,11 @@ const ChaptersTreeStyled = styled.div`
 
 export const ChaptersTree: React.FC<IChaptersTreeProps> = () => {
     const { chapters, selectedId } = useAppSelector(state => state.gamebook);
-    const dispach = useAppDispatch();
     const [selectedIdState, setSelectedIdState] = React.useState(selectedId);
     const [searched, setSearched] = React.useState('');
+    const [isVisibleNewChapterModal, setIsVisibleNewChapterModal] =
+        React.useState(false);
+    const dispach = useAppDispatch();
 
     const handleClick = (id: string) => {
         setSelectedIdState(id);
@@ -65,6 +80,9 @@ export const ChaptersTree: React.FC<IChaptersTreeProps> = () => {
     const handleInputChange = (e: React.ChangeEvent<{ value: string }>) => {
         setSearched(e.target.value);
     };
+    const handleShowNewChapterModal = () => {
+        setIsVisibleNewChapterModal(true);
+    };
 
     // redraw list if selected
     React.useEffect(() => {
@@ -73,55 +91,72 @@ export const ChaptersTree: React.FC<IChaptersTreeProps> = () => {
     }, [selectedIdState]);
 
     return (
-        <ChaptersTreeStyled>
-            <Input
-                placeholder='Filter paragraphs by title or number'
-                size='large'
-                allowClear
-                value={searched}
-                onChange={handleInputChange}
-            />
-            <ul className='tree-list'>
-                {chapters
-                    .filter(chapter => {
-                        return searched
-                            .split(' ')
-                            .some(
-                                a =>
-                                    chapter.title
-                                        .toLowerCase()
-                                        .trim()
-                                        .includes(a.toLowerCase().trim()) ||
-                                    parseInt(a.trim()) === chapter.chapterNumber
-                            );
-                    })
-                    .map(chapter => {
-                        return (
-                            <li
-                                key={chapter.id}
-                                className={`tree-list_chapter ${
-                                    chapter.id === selectedId
-                                        ? 'tree-list_selected'
-                                        : ''
-                                }`}
-                                onClick={() => handleClick(chapter.id)}
-                            >
-                                <Text>
-                                    {`${chapter.chapterNumber}) ${
-                                        chapter.title.length > 25
-                                            ? chapter.title.slice(0, 25) + '...'
-                                            : chapter.title
+        <>
+            <ChaptersTreeStyled>
+                <Input
+                    placeholder='Filter paragraphs by title or number'
+                    size='large'
+                    allowClear
+                    value={searched}
+                    onChange={handleInputChange}
+                />
+                <ul className='tree-list'>
+                    {chapters
+                        .filter(chapter => {
+                            return searched
+                                .split(' ')
+                                .some(
+                                    a =>
+                                        chapter.title
+                                            .toLowerCase()
+                                            .trim()
+                                            .includes(a.toLowerCase().trim()) ||
+                                        parseInt(a.trim()) ===
+                                            chapter.chapterNumber
+                                );
+                        })
+                        .map(chapter => {
+                            return (
+                                <li
+                                    key={chapter.id}
+                                    className={`tree-list_chapter ${
+                                        chapter.id === selectedId
+                                            ? 'tree-list_selected'
+                                            : ''
                                     }`}
-                                </Text>
-                                <div>
-                                    {chapter?.status && (
-                                        <ChapterStatus {...chapter.status} />
-                                    )}
-                                </div>
-                            </li>
-                        );
-                    })}
-            </ul>
-        </ChaptersTreeStyled>
+                                    onClick={() => handleClick(chapter.id)}
+                                >
+                                    <Text>
+                                        {`${chapter.chapterNumber}) ${
+                                            chapter.title.length > 25
+                                                ? chapter.title.slice(0, 25) +
+                                                  '...'
+                                                : chapter.title
+                                        }`}
+                                    </Text>
+                                    <div>
+                                        {chapter?.status && (
+                                            <ChapterStatus
+                                                {...chapter.status}
+                                            />
+                                        )}
+                                    </div>
+                                </li>
+                            );
+                        })}
+                </ul>
+                <Button block size='large' onClick={handleShowNewChapterModal}>
+                    <FontAwesomeIcon
+                        className='faIcon'
+                        icon={faFileCirclePlus}
+                    />{' '}
+                    New chapter
+                </Button>
+                <ModalNewChapter
+                    isVisible={isVisibleNewChapterModal}
+                    setIsVisible={setIsVisibleNewChapterModal}
+                />
+            </ChaptersTreeStyled>
+        </>
     );
 };

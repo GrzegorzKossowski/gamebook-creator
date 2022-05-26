@@ -2,10 +2,12 @@ import React from 'react';
 import { Button } from 'antd';
 import { Route, Routes } from 'react-router-dom';
 import LazySuspense from 'components/LazySuspense';
+import HomePage from 'pages/HomePage';
+import EditorPage from 'pages/EditorPage/EditorPage';
 
-const HomePage = React.lazy(() => import('./pages/HomePage'));
+// const HomePage = React.lazy(() => import('./pages/HomePage'));
+// const EditorPage = React.lazy(() => import('./pages/EditorPage/EditorPage'));
 const NotFound = React.lazy(() => import('./pages/NotFound'));
-const EditorPage = React.lazy(() => import('./pages/EditorPage/EditorPage'));
 
 function App() {
     return (

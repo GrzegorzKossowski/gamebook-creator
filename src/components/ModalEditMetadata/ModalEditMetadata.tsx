@@ -1,4 +1,4 @@
-import { Button, Col, Modal, Row, Typography } from 'antd';
+import { Button, Col, Modal, Row, Space, Typography, notification } from 'antd';
 import React from 'react';
 import styled from 'styled-components';
 import { HighlightOutlined } from '@ant-design/icons';
@@ -29,8 +29,13 @@ export const ModalEditMetadata: React.FC<ModalEditMetadataProps> = ({
     const handleMetadataChange = () => {
         dispatch(setGamebookAuthor(author));
         dispatch(setGamebookTitle(title));
+        notification['success']({
+            message: 'Metadata changed',
+            description: `${author}, creator of "${title}" saved.`,
+            placement: 'bottomRight',
+        });
+        setIsVisible(false);
     };
-
 
     const handleCancel = () => {
         setIsVisible(false);
@@ -70,7 +75,15 @@ export const ModalEditMetadata: React.FC<ModalEditMetadataProps> = ({
                         span={24}
                         style={{ display: 'flex', justifyContent: 'end' }}
                     >
-                        <Button onClick={handleMetadataChange}>Save</Button>
+                        <Space direction='horizontal' size='large'>
+                            <Button onClick={handleCancel}>Cancel</Button>
+                            <Button
+                                type='primary'
+                                onClick={handleMetadataChange}
+                            >
+                                Save
+                            </Button>
+                        </Space>
                     </Col>
                 </Row>
             </Modal>
