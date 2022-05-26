@@ -1,29 +1,19 @@
 {
   "files": {
-    "main.css": "/gamemaker/static/css/main.763ab7db.css",
-    "main.js": "/gamemaker/static/js/main.334bb9ca.js",
-    "static/js/236.3b659d43.chunk.js": "/gamemaker/static/js/236.3b659d43.chunk.js",
+    "main.css": "/gamemaker/static/css/main.86644c20.css",
+    "main.js": "/gamemaker/static/js/main.a51c167d.js",
     "static/js/380.ab7b63bc.chunk.js": "/gamemaker/static/js/380.ab7b63bc.chunk.js",
-    "static/js/313.42bb3ea3.chunk.js": "/gamemaker/static/js/313.42bb3ea3.chunk.js",
     "static/js/787.3309e0f9.chunk.js": "/gamemaker/static/js/787.3309e0f9.chunk.js",
-    "static/js/124.346f05ca.chunk.js": "/gamemaker/static/js/124.346f05ca.chunk.js",
-    "static/js/855.36a4408f.chunk.js": "/gamemaker/static/js/855.36a4408f.chunk.js",
-    "static/js/842.df8e42c6.chunk.js": "/gamemaker/static/js/842.df8e42c6.chunk.js",
     "static/js/63.52ef0e3a.chunk.js": "/gamemaker/static/js/63.52ef0e3a.chunk.js",
     "index.html": "/gamemaker/index.html",
-    "main.763ab7db.css.map": "/gamemaker/static/css/main.763ab7db.css.map",
-    "main.334bb9ca.js.map": "/gamemaker/static/js/main.334bb9ca.js.map",
-    "236.3b659d43.chunk.js.map": "/gamemaker/static/js/236.3b659d43.chunk.js.map",
+    "main.86644c20.css.map": "/gamemaker/static/css/main.86644c20.css.map",
+    "main.a51c167d.js.map": "/gamemaker/static/js/main.a51c167d.js.map",
     "380.ab7b63bc.chunk.js.map": "/gamemaker/static/js/380.ab7b63bc.chunk.js.map",
-    "313.42bb3ea3.chunk.js.map": "/gamemaker/static/js/313.42bb3ea3.chunk.js.map",
     "787.3309e0f9.chunk.js.map": "/gamemaker/static/js/787.3309e0f9.chunk.js.map",
-    "124.346f05ca.chunk.js.map": "/gamemaker/static/js/124.346f05ca.chunk.js.map",
-    "855.36a4408f.chunk.js.map": "/gamemaker/static/js/855.36a4408f.chunk.js.map",
-    "842.df8e42c6.chunk.js.map": "/gamemaker/static/js/842.df8e42c6.chunk.js.map",
     "63.52ef0e3a.chunk.js.map": "/gamemaker/static/js/63.52ef0e3a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.763ab7db.css",
-    "static/js/main.334bb9ca.js"
+    "static/css/main.86644c20.css",
+    "static/js/main.a51c167d.js"
   ]
 }
