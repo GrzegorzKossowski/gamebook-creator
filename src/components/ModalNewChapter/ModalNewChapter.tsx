@@ -81,7 +81,7 @@ export const ModalNewChapter: React.FC<ModalNewChapterProps> = ({
                     <Form.Item
                         name='title'
                         rules={[
-                            { required: true, message: 'Please pick an item!' },
+                            { required: true, message: 'Enter the title!' },
                             { min: 10, message: 'Min length 10 chars!' },
                             { max: 60, message: 'Max length 60 chars!' },
                         ]}

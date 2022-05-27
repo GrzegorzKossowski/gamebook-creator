@@ -1,29 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-    Form,
-    Input,
-    Button,
-    Checkbox,
-    Switch,
-    Space,
-    Row,
-    Col,
-    Radio,
-    Divider,
-} from 'antd';
-import { useAppDispatch, useAppSelector } from 'redux/reduxHooks';
+import { Form, Input, Button, Checkbox, Row, Col, Divider } from 'antd';
+import { useAppSelector, useAppDispatch } from 'redux/reduxHooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faSkullCrossbones,
     faTrophy,
-    faPlay,
     faCircleCheck,
-    faCircleXmark,
-    faCircleStop,
     faThumbTack,
 } from '@fortawesome/free-solid-svg-icons';
 import EditorMenu from './EditorMenu';
+import { CONFIG } from 'configuration';
+import { updateChapter } from 'redux/gameBookSlice';
 
 interface ChapterEditorProps {}
 
@@ -40,6 +28,7 @@ const ChapterEditorStyled = styled.div`
 `;
 
 export const ChapterEditor: React.FC<ChapterEditorProps> = () => {
+    const dispatch = useAppDispatch();
     const { chapters, selectedId } = useAppSelector(state => state.gamebook);
     const [form] = Form.useForm();
 
@@ -62,7 +51,29 @@ export const ChapterEditor: React.FC<ChapterEditorProps> = () => {
     }, [selectedId]);
 
     const onFinish = (values: any) => {
-        console.log(values);
+        // save new chapter
+        if (!selectedId) {
+            console.log(`Create NEW`);
+            return;
+        }
+        // save selected chapter
+        console.log(`Save SELECTED`);
+        const chapterToUpdate = chapters.find(ch => ch.id === selectedId);
+        if (chapterToUpdate)
+            dispatch(
+                updateChapter({
+                    ...chapterToUpdate,
+                    title: values.title,
+                    content: values.content,
+                    status: {
+                        ...chapterToUpdate.status,
+                        fixed: values.fixed,
+                        dead: values.dead,
+                        win: values.win,
+                        ready: values.ready,
+                    },
+                })
+            );
     };
 
     return (
@@ -88,7 +99,20 @@ export const ChapterEditor: React.FC<ChapterEditorProps> = () => {
                         </Form.Item>
                     </Col>
                 </Row>
-                <Form.Item name='title'>
+                <Form.Item
+                    name='title'
+                    rules={[
+                        { required: true, message: `Title can't be empty!` },
+                        {
+                            min: CONFIG.CHAPTER_TITLE_LENGTH_MIN,
+                            message: `Min length ${CONFIG.CHAPTER_TITLE_LENGTH_MIN} chars!`,
+                        },
+                        {
+                            max: CONFIG.CHAPTER_TITLE_LENGTH_MAX,
+                            message: `Max length ${CONFIG.CHAPTER_TITLE_LENGTH_MAX} chars!`,
+                        },
+                    ]}
+                >
                     <Input placeholder='Title' />
                 </Form.Item>
                 <Row gutter={16}>
@@ -137,16 +161,19 @@ export const ChapterEditor: React.FC<ChapterEditorProps> = () => {
                         </Form.Item>
                     </Col>
                 </Row>
-                <Form.Item
-                    name='content'
-                    className='chapter-editor_textarea'
-                >
-                    <Input.TextArea placeholder="Paragraph's contetnt" />
+                <Form.Item name='content' className='chapter-editor_textarea'>
+                    <Input.TextArea placeholder='Create a new chapter using the "New Chapter" buttons or just start writing.' />
                 </Form.Item>
                 <Form.Item>
-                    <Button htmlType='submit' disabled={!selectedId} block>
-                        Save
-                    </Button>
+                    {selectedId ? (
+                        <Button htmlType='submit' block>
+                            Save
+                        </Button>
+                    ) : (
+                        <Button htmlType='submit' block>
+                            Create new
+                        </Button>
+                    )}
                 </Form.Item>
             </Form>
         </ChapterEditorStyled>

@@ -1,7 +1,7 @@
 {
-    "name": "gamemaker",
+    "name": "gamebook-creator",
     "version": "0.1.0",
-    "homepage": "https://grzegorzkossowski.github.io/gamemaker",
+    "homepage": "https://grzegorzkossowski.github.io/gamebook-creator",
     "dependencies": {
         "@faker-js/faker": "^7.0.1",
         "@fortawesome/fontawesome-svg-core": "^6.1.1",

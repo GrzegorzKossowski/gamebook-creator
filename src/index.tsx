@@ -12,7 +12,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <React.StrictMode>
-        {/* <BrowserRouter basename='/gamemaker'> */}
+        {/* <BrowserRouter basename='/gamebook-creator'> */}
         <HashRouter>
             <Provider store={store}>
                 <App />

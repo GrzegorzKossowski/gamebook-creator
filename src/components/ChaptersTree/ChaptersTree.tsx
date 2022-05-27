@@ -84,12 +84,6 @@ export const ChaptersTree: React.FC<IChaptersTreeProps> = () => {
         setIsVisibleNewChapterModal(true);
     };
 
-    // redraw list if selected
-    React.useEffect(() => {
-        console.log(selectedIdState);
-        return () => {};
-    }, [selectedIdState]);
-
     return (
         <>
             <ChaptersTreeStyled>

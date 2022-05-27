@@ -3,6 +3,7 @@ import type { RootState } from './store';
 import { GameBookState, Chapter } from 'configuration/interfaces';
 import { faker } from '@faker-js/faker';
 import { v4 as uuidv4 } from 'uuid';
+import { CONFIG } from 'configuration';
 
 const initialState: GameBookState = {
     authorName: 'John Doe',
@@ -10,7 +11,7 @@ const initialState: GameBookState = {
     selectedId: undefined,
     chapters: [
         {
-            id: uuidv4(),
+            id: CONFIG.FIRST_CHAPTER_ID,
             chapterNumber: 1,
             title: 'First chapter whit very long title it is.',
             content: '',
@@ -20,7 +21,7 @@ const initialState: GameBookState = {
                 ready: true,
             },
         },
-        ...Array.from({ length: 10 }, (_, i) => {
+        ...Array.from({ length: 5 }, (_, i) => {
             return {
                 id: uuidv4(),
                 chapterNumber: i + 2,
@@ -72,6 +73,25 @@ export const gameBookStateSlice = createSlice({
                 },
             ];
         },
+        updateChapter: (state, { payload }: PayloadAction<Chapter>) => {
+            state.chapters = state.chapters.map(chapter => {
+                if (chapter.id === payload.id) {
+                    payload = {
+                        ...payload,
+                        status: {
+                            ...payload.status,
+                            fixed:
+                                chapter.id === CONFIG.FIRST_CHAPTER_ID
+                                    ? true
+                                    : payload.status?.fixed,
+                        },
+                    };
+                    console.log('payload:', payload);
+                    return payload;
+                }
+                return chapter;
+            });
+        },
     },
 });
 
@@ -81,6 +101,7 @@ export const {
     setGamebookInitialData,
     setSelectedChapterId,
     createNewChapter,
+    updateChapter,
 } = gameBookStateSlice.actions;
 export const otherReducer = (state: RootState) => {
     // console.log(state.gamebook.chapters);

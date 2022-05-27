@@ -37,7 +37,7 @@ const EditorPageStyled = styled.div`
     }
 `;
 
-const EditorPage: React.FC<IEditorPageProps> = ({ ...restProps }) => {
+export const EditorPage: React.FC<IEditorPageProps> = ({ ...restProps }) => {
     return (
         <EditorPageStyled>
             <TopMenu />
@@ -67,11 +67,10 @@ const EditorPage: React.FC<IEditorPageProps> = ({ ...restProps }) => {
                     lg={{ span: 24, order: 3 }}
                     xl={{ span: 6, order: 3 }}
                 >
-                    <GraphTree data={[]} />
+                    {/* <GraphTree data={[]} /> */}
                 </Col>
             </Row>
         </EditorPageStyled>
     );
 };
 
-export default EditorPage;

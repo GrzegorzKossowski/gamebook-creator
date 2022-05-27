@@ -3,7 +3,7 @@ import { Button } from 'antd';
 import { Route, Routes } from 'react-router-dom';
 import LazySuspense from 'components/LazySuspense';
 import HomePage from 'pages/HomePage';
-import EditorPage from 'pages/EditorPage/EditorPage';
+import EditorPage from 'pages/EditorPage';
 
 // const HomePage = React.lazy(() => import('./pages/HomePage'));
 // const EditorPage = React.lazy(() => import('./pages/EditorPage/EditorPage'));
