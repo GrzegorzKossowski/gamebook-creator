@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/gamemaker/static/css/main.86644c20.css",
-    "main.js": "/gamemaker/static/js/main.a51c167d.js",
-    "static/js/380.ab7b63bc.chunk.js": "/gamemaker/static/js/380.ab7b63bc.chunk.js",
-    "static/js/787.3309e0f9.chunk.js": "/gamemaker/static/js/787.3309e0f9.chunk.js",
-    "static/js/63.52ef0e3a.chunk.js": "/gamemaker/static/js/63.52ef0e3a.chunk.js",
-    "index.html": "/gamemaker/index.html",
-    "main.86644c20.css.map": "/gamemaker/static/css/main.86644c20.css.map",
-    "main.a51c167d.js.map": "/gamemaker/static/js/main.a51c167d.js.map",
-    "380.ab7b63bc.chunk.js.map": "/gamemaker/static/js/380.ab7b63bc.chunk.js.map",
-    "787.3309e0f9.chunk.js.map": "/gamemaker/static/js/787.3309e0f9.chunk.js.map",
-    "63.52ef0e3a.chunk.js.map": "/gamemaker/static/js/63.52ef0e3a.chunk.js.map"
+    "main.css": "/gamebook-creator/static/css/main.86644c20.css",
+    "main.js": "/gamebook-creator/static/js/main.44214055.js",
+    "static/js/380.75dd1610.chunk.js": "/gamebook-creator/static/js/380.75dd1610.chunk.js",
+    "static/js/787.52164f28.chunk.js": "/gamebook-creator/static/js/787.52164f28.chunk.js",
+    "static/js/63.c5c9743a.chunk.js": "/gamebook-creator/static/js/63.c5c9743a.chunk.js",
+    "index.html": "/gamebook-creator/index.html",
+    "main.86644c20.css.map": "/gamebook-creator/static/css/main.86644c20.css.map",
+    "main.44214055.js.map": "/gamebook-creator/static/js/main.44214055.js.map",
+    "380.75dd1610.chunk.js.map": "/gamebook-creator/static/js/380.75dd1610.chunk.js.map",
+    "787.52164f28.chunk.js.map": "/gamebook-creator/static/js/787.52164f28.chunk.js.map",
+    "63.c5c9743a.chunk.js.map": "/gamebook-creator/static/js/63.c5c9743a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.86644c20.css",
-    "static/js/main.a51c167d.js"
+    "static/js/main.44214055.js"
   ]
 }
