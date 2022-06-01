@@ -100,6 +100,24 @@ const items: MenuProps['items'] = [
         key: 'previewBook',
         disabled: true,
     },
+    {
+        label: 'Graph',
+        key: 'graphBook',
+        disabled: true,
+    },
+    {
+        label: 'About',
+        key: 'aboutApp',
+        disabled: true,
+        children: [
+            {
+                label: 'Help',
+                key: 'appHelp',
+                disabled: true,
+                icon: <FontAwesomeIcon icon={faFileCode} />,
+            },
+        ],
+    },
 ];
 
 export const TopMenu: React.FC<TopMenuProps> = () => {

@@ -21,14 +21,19 @@ export const HomePage: React.FC<HomePageProps> = () => {
     const handleShowNewGameBookModal = () => {
         setIsModalNewGameVisible(true);
     };
+    const year = new Date().getFullYear()
 
     return (
         <>
             <Row justify='center'>
                 <HomePageStyled>
                     <Title level={1}>GameBook Creator</Title>
+                    <Text style={{ marginBottom: '1rem' }}>
+                        A gamebook is a work of printed fiction that allows the
+                        reader to participate in the story by making choices.
+                    </Text>
                     <Text style={{ marginBottom: '2rem' }}>
-                        &copy; Grzegorz Kossowski 2022
+                        &copy; Grzegorz Kossowski 2022 {year > 2022 && `- ${year}`}
                     </Text>
                     <Row style={{ width: '100%' }} justify='center'>
                         <Col>

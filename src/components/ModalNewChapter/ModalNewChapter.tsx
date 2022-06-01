@@ -23,6 +23,7 @@ import {
     faThumbTack,
     faTrophy,
 } from '@fortawesome/free-solid-svg-icons';
+import { CONFIG } from 'configuration';
 
 interface ModalNewChapterProps {
     isVisible: boolean;
@@ -45,7 +46,6 @@ export const ModalNewChapter: React.FC<ModalNewChapterProps> = ({
         setIsVisible(false);
     };
     const onFinish = (variables: any) => {
-        console.log(variables.title);
         dispach(createNewChapter(variables.title));
         notification['success']({
             message: 'Chapter created',
@@ -82,8 +82,14 @@ export const ModalNewChapter: React.FC<ModalNewChapterProps> = ({
                         name='title'
                         rules={[
                             { required: true, message: 'Enter the title!' },
-                            { min: 10, message: 'Min length 10 chars!' },
-                            { max: 60, message: 'Max length 60 chars!' },
+                            {
+                                min: CONFIG.CHAPTER_TITLE_LENGTH_MIN,
+                                message: `Min length ${CONFIG.CHAPTER_TITLE_LENGTH_MIN} chars!`,
+                            },
+                            {
+                                max: CONFIG.CHAPTER_TITLE_LENGTH_MAX,
+                                message: `Max length ${CONFIG.CHAPTER_TITLE_LENGTH_MAX} chars!`,
+                            },
                         ]}
                     >
                         <Input placeholder="ex. Entering dungeon's kitchen" />

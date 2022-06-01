@@ -1,14 +1,6 @@
-import { Col, Menu, Row } from 'antd';
+import { Col, Row } from 'antd';
 import React from 'react';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faFileCirclePlus,
-    faFolderOpen,
-    faDice,
-    faFileWord,
-} from '@fortawesome/free-solid-svg-icons';
-import MainMenu from 'components/MainMenu';
 import ChaptersTree from 'components/ChaptersTree';
 import ChapterEditor from 'components/ChapterEditor';
 import GraphTree from 'components/GraphTree';
@@ -23,6 +15,7 @@ const EditorPageStyled = styled.div`
     }
     .sidebar__tree-container {
         width: 25%;
+        min-width: 400px;
         height: 100%;
         overflow-y: hidden;
     }
@@ -67,10 +60,9 @@ export const EditorPage: React.FC<IEditorPageProps> = ({ ...restProps }) => {
                     lg={{ span: 24, order: 3 }}
                     xl={{ span: 6, order: 3 }}
                 >
-                    {/* <GraphTree data={[]} /> */}
+                    <GraphTree />
                 </Col>
             </Row>
         </EditorPageStyled>
     );
 };
-

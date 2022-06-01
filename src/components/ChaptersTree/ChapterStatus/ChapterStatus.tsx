@@ -8,9 +8,9 @@ import {
     faCircleStop,
     faThumbTack,
 } from '@fortawesome/free-solid-svg-icons';
-import { Status } from 'configuration/interfaces';
+import { IStatus } from 'configuration/interfaces';
 
-export const ChapterStatus = ({ dead, end, fixed, ready, start, win }: Status) => {
+export const ChapterStatus = ({ dead, end, fixed, ready, start, win }: IStatus) => {
     return (
         <>
             {start && (

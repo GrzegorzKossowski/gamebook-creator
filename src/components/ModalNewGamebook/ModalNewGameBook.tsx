@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from 'redux/reduxHooks';
 import { setGamebookInitialData } from 'redux/gameBookSlice';
 import { useNavigate } from 'react-router-dom';
+import { CONFIG } from 'configuration';
 
 interface ModalNewGameBookProps {
     isVisible: boolean;
@@ -65,12 +66,12 @@ export const ModalNewGameBook: React.FC<ModalNewGameBookProps> = ({
                                 message: "Please input author's name!",
                             },
                             {
-                                min: 3,
-                                message: 'Name min 3 chars!',
+                                min: CONFIG.AUHOR_NAME_LENGTH_MIN,
+                                message: `Name min ${CONFIG.AUHOR_NAME_LENGTH_MIN} chars!`,
                             },
                             {
-                                max: 30,
-                                message: 'Name max 30 chars',
+                                max: CONFIG.AUHOR_NAME_LENGTH_MAX,
+                                message: `Name max ${CONFIG.AUHOR_NAME_LENGTH_MAX} chars`,
                             },
                         ]}
                     >
@@ -78,7 +79,6 @@ export const ModalNewGameBook: React.FC<ModalNewGameBookProps> = ({
                     </Form.Item>
                     <Form.Item
                         label='Title'
-                        tooltip='This is a required field, gamebook title.'
                         name='gamebookTitle'
                         rules={[
                             {
@@ -86,18 +86,22 @@ export const ModalNewGameBook: React.FC<ModalNewGameBookProps> = ({
                                 message: 'Please input gamebook main title!',
                             },
                             {
-                                min: 5,
-                                message: 'Min title 5 chars!',
+                                min: CONFIG.CHAPTER_TITLE_LENGTH_MIN,
+                                message: `Name min ${CONFIG.CHAPTER_TITLE_LENGTH_MIN} chars!`,
                             },
                             {
-                                max: 50,
-                                message: 'Max title 50 chars!',
+                                max: CONFIG.CHAPTER_TITLE_LENGTH_MAX,
+                                message: `Name max ${CONFIG.CHAPTER_TITLE_LENGTH_MAX} chars`,
                             },
                         ]}
                     >
                         <Input placeholder='ex. New Journey of Halflings' />
                     </Form.Item>
-                    <Form.Item>
+                    <Form.Item
+                        style={{
+                            textAlign: 'end',
+                        }}
+                    >
                         <Button type='primary' htmlType='submit'>
                             Submit
                         </Button>

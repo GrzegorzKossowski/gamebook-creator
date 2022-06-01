@@ -1,12 +1,12 @@
 import React from 'react';
-import { Button } from 'antd';
 import { Route, Routes } from 'react-router-dom';
 import LazySuspense from 'components/LazySuspense';
 import HomePage from 'pages/HomePage';
 import EditorPage from 'pages/EditorPage';
-
 // const HomePage = React.lazy(() => import('./pages/HomePage'));
-// const EditorPage = React.lazy(() => import('./pages/EditorPage/EditorPage'));
+// const EditorPage = React.lazy(() => import('./pages/EditorPage'));
+// import GraphTreeBig from 'components/GraphTreeBig';
+const GraphTreeBig = React.lazy(() => import('./pages/GraphTreeBigPage'));
 const NotFound = React.lazy(() => import('./pages/NotFound'));
 
 function App() {
@@ -24,6 +24,10 @@ function App() {
             <Route
                 path='editor'
                 element={<LazySuspense component={<EditorPage />} />}
+            />
+            <Route
+                path='graph'
+                element={<LazySuspense component={<GraphTreeBig />} />}
             />
             <Route
                 path='*'

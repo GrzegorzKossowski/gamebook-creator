@@ -11,7 +11,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import EditorMenu from './EditorMenu';
 import { CONFIG } from 'configuration';
-import { updateChapter } from 'redux/gameBookSlice';
+import { addNewChapter, updateChapter } from 'redux/gameBookSlice';
+import { IChapter } from 'configuration/interfaces';
 
 interface ChapterEditorProps {}
 
@@ -28,6 +29,9 @@ const ChapterEditorStyled = styled.div`
 `;
 
 export const ChapterEditor: React.FC<ChapterEditorProps> = () => {
+    const [selectedChapterNumber, setSelectedChapterNumber] = React.useState<
+        number | undefined
+    >(undefined);
     const dispatch = useAppDispatch();
     const { chapters, selectedId } = useAppSelector(state => state.gamebook);
     const [form] = Form.useForm();
@@ -46,6 +50,7 @@ export const ChapterEditor: React.FC<ChapterEditorProps> = () => {
                 fixed: chapter?.status?.fixed,
                 ready: chapter?.status?.ready,
             });
+            setSelectedChapterNumber(chapter?.chapterNumber);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedId]);
@@ -53,11 +58,21 @@ export const ChapterEditor: React.FC<ChapterEditorProps> = () => {
     const onFinish = (values: any) => {
         // save new chapter
         if (!selectedId) {
-            console.log(`Create NEW`);
+            dispatch(
+                addNewChapter({
+                    title: values.title,
+                    content: values.content,
+                    status: {
+                        fixed: values.fixed,
+                        dead: values.dead,
+                        win: values.win,
+                        ready: values.ready,
+                    },
+                } as IChapter)
+            );
             return;
         }
         // save selected chapter
-        console.log(`Save SELECTED`);
         const chapterToUpdate = chapters.find(ch => ch.id === selectedId);
         if (chapterToUpdate)
             dispatch(
@@ -113,17 +128,23 @@ export const ChapterEditor: React.FC<ChapterEditorProps> = () => {
                         },
                     ]}
                 >
-                    <Input placeholder='Title' />
+                    <Input
+                        addonBefore={selectedChapterNumber}
+                        placeholder='Title'
+                    />
                 </Form.Item>
                 <Row gutter={16}>
                     <Col>
-                        <Form.Item name='win' valuePropName='checked'>
+                        <Form.Item
+                            name='win'
+                            valuePropName='checked'
+                        >
                             <Checkbox onChange={() => {}}>
                                 <FontAwesomeIcon
                                     className='faIcon'
                                     icon={faTrophy}
                                 />{' '}
-                                Win ending
+                                Victory!
                             </Checkbox>
                         </Form.Item>
                     </Col>
@@ -134,7 +155,7 @@ export const ChapterEditor: React.FC<ChapterEditorProps> = () => {
                                     className='faIcon'
                                     icon={faSkullCrossbones}
                                 />{' '}
-                                Dead ending
+                                Death
                             </Checkbox>
                         </Form.Item>
                     </Col>
@@ -145,7 +166,7 @@ export const ChapterEditor: React.FC<ChapterEditorProps> = () => {
                                     className='faIcon'
                                     icon={faThumbTack}
                                 />{' '}
-                                Fixed chapter
+                                Is fixed
                             </Checkbox>
                         </Form.Item>
                     </Col>

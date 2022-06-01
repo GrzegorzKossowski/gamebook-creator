@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from './store';
-import { GameBookState, Chapter } from 'configuration/interfaces';
+import { IGameBookState, IChapter } from 'configuration/interfaces';
 import { faker } from '@faker-js/faker';
 import { v4 as uuidv4 } from 'uuid';
 import { CONFIG } from 'configuration';
 
-const initialState: GameBookState = {
+const initialState: IGameBookState = {
     authorName: 'John Doe',
     gamebookTitle: 'Very new title',
     selectedId: undefined,
@@ -13,8 +13,8 @@ const initialState: GameBookState = {
         {
             id: CONFIG.FIRST_CHAPTER_ID,
             chapterNumber: 1,
-            title: 'First chapter whit very long title it is.',
-            content: '',
+            title: 'First chapter - the journey begins.',
+            content: 'Link to chapter {2}, {4}, empty {}',
             status: {
                 start: true,
                 fixed: true,
@@ -25,11 +25,17 @@ const initialState: GameBookState = {
             return {
                 id: uuidv4(),
                 chapterNumber: i + 2,
-                title: faker.company.catchPhrase(),
-                content: faker.lorem.paragraphs(5),
+                title: faker.lorem.lines(1),
+                content:
+                    faker.lorem.paragraphs(1) +
+                    ` link to {${
+                        Math.floor(Math.random() * (i - 2)) + 6
+                    }}, link to {${
+                        Math.floor(Math.random() * (i - 2)) + 10
+                    }}, link to {}`,
                 status: {
                     fixed: Math.random() < 0.5,
-                    end: Math.random() < 0.9 && Math.random() > 0.85,
+                    // end: Math.random() < 0.9 && Math.random() > 0.85,
                     dead: Math.random() < 0.92 && Math.random() > 0.9,
                     win: Math.random() > 0.92,
                     ready: faker.datatype.boolean(),
@@ -62,18 +68,36 @@ export const gameBookStateSlice = createSlice({
             state.selectedId = payload;
         },
         createNewChapter: (state, { payload }: PayloadAction<string>) => {
+            const newId = uuidv4();
             state.chapters = [
                 ...state.chapters,
                 {
-                    id: uuidv4(),
+                    id: newId,
                     chapterNumber: state.chapters.length + 1,
                     title: payload,
                     content: '',
                     status: {},
                 },
             ];
+            state.selectedId = newId;
         },
-        updateChapter: (state, { payload }: PayloadAction<Chapter>) => {
+        addNewChapter: (state, { payload }: PayloadAction<IChapter>) => {
+            const newId = uuidv4();
+            state.chapters = [
+                ...state.chapters,
+                {
+                    id: newId,
+                    chapterNumber: state.chapters.length + 1,
+                    title: payload.title,
+                    content: payload.content || '',
+                    status: {
+                        ...payload.status,
+                    },
+                },
+            ];
+            state.selectedId = newId;
+        },
+        updateChapter: (state, { payload }: PayloadAction<IChapter>) => {
             state.chapters = state.chapters.map(chapter => {
                 if (chapter.id === payload.id) {
                     payload = {
@@ -86,7 +110,6 @@ export const gameBookStateSlice = createSlice({
                                     : payload.status?.fixed,
                         },
                     };
-                    console.log('payload:', payload);
                     return payload;
                 }
                 return chapter;
@@ -102,7 +125,9 @@ export const {
     setSelectedChapterId,
     createNewChapter,
     updateChapter,
+    addNewChapter,
 } = gameBookStateSlice.actions;
+
 export const otherReducer = (state: RootState) => {
     // console.log(state.gamebook.chapters);
 };
