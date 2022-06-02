@@ -94,62 +94,6 @@ export const ModalNewChapter: React.FC<ModalNewChapterProps> = ({
                     >
                         <Input placeholder="ex. Entering dungeon's kitchen" />
                     </Form.Item>
-                    {/* <Row gutter={16} justify='center'>
-                        <Col>
-                            <Form.Item name='win' valuePropName='checked'>
-                                <Checkbox onChange={() => {}}>
-                                    <FontAwesomeIcon
-                                        className='faIcon'
-                                        icon={faTrophy}
-                                    />{' '}
-                                    Win ending
-                                </Checkbox>
-                            </Form.Item>
-                        </Col>
-                        <Col>
-                            <Form.Item name='dead' valuePropName='checked'>
-                                <Checkbox
-                                    onChange={() => {}}
-                                    value='Dead ending'
-                                >
-                                    <FontAwesomeIcon
-                                        className='faIcon'
-                                        icon={faSkullCrossbones}
-                                    />{' '}
-                                    Dead ending
-                                </Checkbox>
-                            </Form.Item>
-                        </Col>
-                        <Col>
-                            <Form.Item name='fixed' valuePropName='checked'>
-                                <Checkbox
-                                    onChange={() => {}}
-                                    value='Fixed chapter'
-                                >
-                                    <FontAwesomeIcon
-                                        className='faIcon'
-                                        icon={faThumbTack}
-                                    />{' '}
-                                    Fixed chapter
-                                </Checkbox>
-                            </Form.Item>
-                        </Col>
-                        <Col>
-                            <Form.Item name='ready' valuePropName='checked'>
-                                <Checkbox
-                                    onChange={() => {}}
-                                    value='Fixed chapter'
-                                    disabled
-                                >
-                                    <FontAwesomeIcon
-                                        className='faIcon'
-                                        icon={faCircleCheck}
-                                    />{' '}
-                                    Is ready
-                                </Checkbox>
-                            </Form.Item>
-                        </Col>
-                    </Row> */}
                     <Form.Item
                         style={{
                             textAlign: 'end',

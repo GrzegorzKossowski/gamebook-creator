@@ -17,6 +17,10 @@ import {
     faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import ModalNewChapter from 'components/ModalNewChapter';
+import ModalDeleteChapter from 'components/ModalDeleteChapter';
+import { useAppDispatch, useAppSelector } from 'redux/reduxHooks';
+import { CONFIG } from 'configuration';
+import { deleteChapterById } from 'redux/gameBookSlice';
 
 interface EditorMenuProps {}
 
@@ -27,11 +31,21 @@ const EditorMenuStyled = styled.div`
 `;
 
 export const EditorMenu: React.FC<EditorMenuProps> = () => {
+    const { selectedId, chapters } = useAppSelector(state => state.gamebook);
+    const dispatch = useAppDispatch();
+
     const [isVisibleModalNewChapter, setisVisibleModalNewChapter] =
+        React.useState(false);
+    const [isVisibleDeleteModal, setIsVisibleDeleteModal] =
         React.useState(false);
 
     const handleShowNewChapterModal = () => {
         setisVisibleModalNewChapter(true);
+    };
+    const handleShowDeleteChapterModal = () => {
+        // setIsVisibleDeleteModal(true);
+        let chapter = chapters.find(ch => ch.id === selectedId);
+        if (chapter) dispatch(deleteChapterById(chapter));
     };
     return (
         <>
@@ -57,7 +71,12 @@ export const EditorMenu: React.FC<EditorMenuProps> = () => {
                     </Tooltip>
                 </Space>
                 <Tooltip title='Delete chapter' style={{ marginLeft: 'auto' }}>
-                    <Button size='large' danger disabled>
+                    <Button
+                        size='large'
+                        danger
+                        onClick={handleShowDeleteChapterModal}
+                        disabled={!selectedId}
+                    >
                         <FontAwesomeIcon className='faIcon' icon={faTrash} />{' '}
                         Delete
                     </Button>
@@ -66,6 +85,10 @@ export const EditorMenu: React.FC<EditorMenuProps> = () => {
             <ModalNewChapter
                 isVisible={isVisibleModalNewChapter}
                 setIsVisible={setisVisibleModalNewChapter}
+            />
+            <ModalDeleteChapter
+                isVisible={isVisibleDeleteModal}
+                setIsVisible={setIsVisibleDeleteModal}
             />
         </>
     );

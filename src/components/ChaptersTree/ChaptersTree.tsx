@@ -109,7 +109,7 @@ export const ChaptersTree: React.FC<IChaptersTreeProps> = () => {
                                             chapter.chapterNumber
                                 );
                         })
-                        .map(chapter => {
+                        .map((chapter, index) => {
                             return (
                                 <li
                                     key={chapter.id}
@@ -121,7 +121,7 @@ export const ChaptersTree: React.FC<IChaptersTreeProps> = () => {
                                     onClick={() => handleClick(chapter.id)}
                                 >
                                     <Text>
-                                        {`${chapter.chapterNumber}) ${
+                                        {`${chapter.chapterNumber}) ix: ${index} - ${
                                             chapter.title.length > 25
                                                 ? chapter.title.slice(0, 25) +
                                                   '...'

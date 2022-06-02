@@ -115,6 +115,21 @@ export const gameBookStateSlice = createSlice({
                 return chapter;
             });
         },
+        deleteChapterById: (state, { payload }: PayloadAction<IChapter>) => {
+            console.log('deleting', payload, payload.chapterNumber);
+            if (payload.id !== CONFIG.FIRST_CHAPTER_ID) {
+                state.chapters = state.chapters
+                    .filter(chapter => chapter.id !== payload.id)
+                    .map((chapter, index) => {
+                        return {
+                            ...chapter,
+                            chapterNumber: index + 1,
+                        };
+                    });
+
+                state.selectedId = undefined;
+            }
+        },
     },
 });
 
@@ -126,6 +141,7 @@ export const {
     createNewChapter,
     updateChapter,
     addNewChapter,
+    deleteChapterById,
 } = gameBookStateSlice.actions;
 
 export const otherReducer = (state: RootState) => {

@@ -21,7 +21,7 @@ export const HomePage: React.FC<HomePageProps> = () => {
     const handleShowNewGameBookModal = () => {
         setIsModalNewGameVisible(true);
     };
-    const year = new Date().getFullYear()
+    const year = new Date().getFullYear();
 
     return (
         <>
@@ -33,7 +33,8 @@ export const HomePage: React.FC<HomePageProps> = () => {
                         reader to participate in the story by making choices.
                     </Text>
                     <Text style={{ marginBottom: '2rem' }}>
-                        &copy; Grzegorz Kossowski 2022 {year > 2022 && `- ${year}`}
+                        &copy; Grzegorz Kossowski 2022{' '}
+                        {year > 2022 && `- ${year}`}
                     </Text>
                     <Row style={{ width: '100%' }} justify='center'>
                         <Col>

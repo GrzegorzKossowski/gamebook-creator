@@ -51,6 +51,9 @@ export const ChapterEditor: React.FC<ChapterEditorProps> = () => {
                 ready: chapter?.status?.ready,
             });
             setSelectedChapterNumber(chapter?.chapterNumber);
+        } else {
+            setSelectedChapterNumber(undefined);
+            form.resetFields();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedId]);
@@ -135,10 +138,7 @@ export const ChapterEditor: React.FC<ChapterEditorProps> = () => {
                 </Form.Item>
                 <Row gutter={16}>
                     <Col>
-                        <Form.Item
-                            name='win'
-                            valuePropName='checked'
-                        >
+                        <Form.Item name='win' valuePropName='checked'>
                             <Checkbox onChange={() => {}}>
                                 <FontAwesomeIcon
                                     className='faIcon'
@@ -161,7 +161,15 @@ export const ChapterEditor: React.FC<ChapterEditorProps> = () => {
                     </Col>
                     <Col>
                         <Form.Item name='fixed' valuePropName='checked'>
-                            <Checkbox onChange={() => {}} value='Fixed chapter'>
+                            <Checkbox
+                                onChange={() => {}}
+                                value='Fixed chapter'
+                                disabled={
+                                    selectedId === CONFIG.FIRST_CHAPTER_ID
+                                        ? true
+                                        : false
+                                }
+                            >
                                 <FontAwesomeIcon
                                     className='faIcon'
                                     icon={faThumbTack}
