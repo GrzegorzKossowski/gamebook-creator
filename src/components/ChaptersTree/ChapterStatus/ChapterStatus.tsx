@@ -5,12 +5,11 @@ import {
     faPlay,
     faCircleCheck,
     faCircleXmark,
-    faCircleStop,
     faThumbTack,
 } from '@fortawesome/free-solid-svg-icons';
 import { IStatus } from 'configuration/interfaces';
 
-export const ChapterStatus = ({ dead, end, fixed, ready, start, win }: IStatus) => {
+export const ChapterStatus = ({ dead, fixed, ready, start, win }: IStatus) => {
     return (
         <>
             {start && (
@@ -30,13 +29,6 @@ export const ChapterStatus = ({ dead, end, fixed, ready, start, win }: IStatus) 
             {dead && (
                 <FontAwesomeIcon
                     icon={faSkullCrossbones}
-                    size='sm'
-                    style={{ marginRight: '10px' }}
-                />
-            )}
-            {end && (
-                <FontAwesomeIcon
-                    icon={faCircleStop}
                     size='sm'
                     style={{ marginRight: '10px' }}
                 />

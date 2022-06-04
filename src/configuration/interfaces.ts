@@ -1,6 +1,5 @@
 export interface IStatus {
     dead?: boolean | undefined;
-    end?: boolean | undefined;
     fixed?: boolean | undefined;
     ready?: boolean | undefined;
     start?: boolean | undefined;
@@ -28,6 +27,9 @@ export interface IGraphNode {
     title?: string;
     color?: string;
     opacity?: number;
+    font?: {
+        color?: string
+    }
 }
 export interface IGraphEdge {
     from: string | number;

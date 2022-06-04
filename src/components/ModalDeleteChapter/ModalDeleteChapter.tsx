@@ -78,14 +78,17 @@ export const ModalDeleteChapter: React.FC<ModalDeleteChapterProps> = ({
                     </>
                 ) : (
                     <>
-                        <p>
-                            Do you really want to delete chapter:{' '}
-                            <Text style={{ fontWeight: 'bold' }}>
-                                {chapterToDelete?.chapterNumber}
-                                {') '}
-                                {chapterToDelete?.title.slice(0, 20)}...
-                            </Text>
-                        </p>
+                        <Text>Do you really want to delete chapter: </Text>
+                        <Text style={{ fontWeight: 'bold' }}>
+                            {chapterToDelete?.chapterNumber}
+                            {') '}
+                            {chapterToDelete?.title.slice(0, 20)}...
+                        </Text>
+                        <Text type='warning'>
+                            It can create some tree issues! All links to{' '}
+                            {chapterToDelete?.chapterNumber} become empty {}{' '}
+                            links.
+                        </Text>
                         <div
                             style={{
                                 textAlign: 'end',

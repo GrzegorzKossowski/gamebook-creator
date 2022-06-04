@@ -3,24 +3,15 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    faSkullCrossbones,
-    faTrophy,
-    faPlay,
-    faCircleCheck,
-    faCircleXmark,
-    faCircleStop,
-    faThumbTack,
-    faPlusCircle,
-    faFloppyDisk,
     faFileCirclePlus,
     faDice,
     faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import ModalNewChapter from 'components/ModalNewChapter';
 import ModalDeleteChapter from 'components/ModalDeleteChapter';
+import ModalShuffleChapter from 'components/ModalShuffleChapter';
 import { useAppDispatch, useAppSelector } from 'redux/reduxHooks';
-import { CONFIG } from 'configuration';
-import { deleteChapterById } from 'redux/gameBookSlice';
+import { deleteChapterById, shuffleChapters } from 'redux/gameBookSlice';
 
 interface EditorMenuProps {}
 
@@ -30,22 +21,32 @@ const EditorMenuStyled = styled.div`
     justify-content: space-between;
 `;
 
+/**
+ * Shows the menu component with buttons above the chapter editor
+ * @returns React component
+ */
 export const EditorMenu: React.FC<EditorMenuProps> = () => {
     const { selectedId, chapters } = useAppSelector(state => state.gamebook);
     const dispatch = useAppDispatch();
 
     const [isVisibleModalNewChapter, setisVisibleModalNewChapter] =
         React.useState(false);
-    const [isVisibleDeleteModal, setIsVisibleDeleteModal] =
+    const [isVisibleModalDelete, setIsVisibleModalDelete] =
+        React.useState(false);
+    const [isVisibleModalShuffleChapter, setIsVisibleModalShuffleChapter] =
         React.useState(false);
 
     const handleShowNewChapterModal = () => {
         setisVisibleModalNewChapter(true);
     };
     const handleShowDeleteChapterModal = () => {
-        // setIsVisibleDeleteModal(true);
-        let chapter = chapters.find(ch => ch.id === selectedId);
-        if (chapter) dispatch(deleteChapterById(chapter));
+        setIsVisibleModalDelete(true);
+    };
+    const handleShowShuffleChapterModal = () => {
+        setIsVisibleModalShuffleChapter(true);
+
+        // TODO: skasować dispach po testach shufflowania
+        // dispatch(shuffleChapters());
     };
     return (
         <>
@@ -64,7 +65,10 @@ export const EditorMenu: React.FC<EditorMenuProps> = () => {
                         </Button>
                     </Tooltip>
                     <Tooltip title='Shuffle chapters'>
-                        <Button size='large' disabled>
+                        <Button
+                            size='large'
+                            onClick={handleShowShuffleChapterModal}
+                        >
                             <FontAwesomeIcon className='faIcon' icon={faDice} />{' '}
                             Shuffle
                         </Button>
@@ -87,8 +91,12 @@ export const EditorMenu: React.FC<EditorMenuProps> = () => {
                 setIsVisible={setisVisibleModalNewChapter}
             />
             <ModalDeleteChapter
-                isVisible={isVisibleDeleteModal}
-                setIsVisible={setIsVisibleDeleteModal}
+                isVisible={isVisibleModalDelete}
+                setIsVisible={setIsVisibleModalDelete}
+            />
+            <ModalShuffleChapter
+                isVisible={isVisibleModalShuffleChapter}
+                setIsVisible={setIsVisibleModalShuffleChapter}
             />
         </>
     );

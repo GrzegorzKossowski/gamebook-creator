@@ -73,10 +73,10 @@ export const GraphTree: React.FC<GraphTreeProps> = () => {
                     label: `${
                         selectedChapter[0].chapterNumber
                     }\n${selectedChapter[0].title.slice(0, 10)}`,
-                    title: `${
-                        selectedChapter[0].chapterNumber
-                    } ${selectedChapter[0].title.slice(0, 10)}`,
-                    color: '#1890ff',
+                    color: '#0050b3',
+                    font: {
+                        color: 'white',
+                    }
                 },
             ];
             // sprawdź Empty chapter, dodaj empty chapter
@@ -84,16 +84,16 @@ export const GraphTree: React.FC<GraphTreeProps> = () => {
                 nodes = [
                     ...nodes,
                     {
-                        id: 'EMPTY_CHAPTER',
+                        id: `EMPTY_${selectedChapter[0].id}`,
                         label: '{ EMPTY LINK }',
-                        color: 'yellow',
+                        color: '#fff1b8',
                     },
                 ];
                 edges = [
                     ...edges,
                     {
                         from: selectedChapter[0].id,
-                        to: 'EMPTY_CHAPTER',
+                        to: `EMPTY_${selectedChapter[0].id}`,
                     },
                 ];
             }
@@ -110,10 +110,7 @@ export const GraphTree: React.FC<GraphTreeProps> = () => {
                             label: `${
                                 chapters[element - 1].chapterNumber
                             }\n${chapters[element - 1].title.slice(0, 10)}`,
-                            title: `${
-                                chapters[element - 1].chapterNumber
-                            }\n${chapters[element - 1].title.slice(0, 10)}`,
-                            color: '#69c0ff',
+                            color: '#1890ff',
                         });
                         edges.push({
                             from: selectedChapter[0].id,
@@ -122,14 +119,14 @@ export const GraphTree: React.FC<GraphTreeProps> = () => {
                     }
                     if (element > chapters.length) {
                         nodes.push({
-                            id: 'NO_CHAPTER',
+                            id: `NO_CHAPTER_${selectedChapter[0].id}`,
                             label: 'NO CHAPTER',
                             title: 'NO CHAPTER',
                             color: '#ff7875',
                         });
                         edges.push({
                             from: selectedChapter[0].id,
-                            to: 'NO_CHAPTER',
+                            to: `NO_CHAPTER_${selectedChapter[0].id}`,
                             label: `${element}`,
                         });
                     }
@@ -162,21 +159,42 @@ export const GraphTree: React.FC<GraphTreeProps> = () => {
                             // za duże,
                             if (layerChapter > chapters.length) {
                                 nodes.push({
-                                    id: 'NO_CHAPTER',
+                                    id: `NO_CHAPTER_${
+                                        chapters[element - 1].id
+                                    }`,
                                     label: 'NO CHAPTER',
                                     title: 'NO CHAPTER',
                                     color: '#ff7875',
                                 });
                                 edges.push({
                                     from: chapters[element - 1].id,
-                                    to: 'NO_CHAPTER',
+                                    to: `NO_CHAPTER_${
+                                        chapters[element - 1].id
+                                    }`,
                                     label: `${layerChapter}`,
                                 });
                             }
-                            // pusty
-
                             return null;
                         });
+                        // pusty
+                        // sprawdź Empty chapter, dodaj empty chapter
+                        if (chapters[element - 1].content?.includes('{}')) {
+                            nodes = [
+                                ...nodes,
+                                {
+                                    id: `EMPTY_${chapters[element - 1].id}`,
+                                    label: '{ EMPTY LINK }',
+                                    color: '#fff1b8',
+                                },
+                            ];
+                            edges = [
+                                ...edges,
+                                {
+                                    from: chapters[element - 1].id,
+                                    to: `EMPTY_${chapters[element - 1].id}`,
+                                },
+                            ];
+                        }
                     }
 
                     return null;
@@ -195,22 +213,6 @@ export const GraphTree: React.FC<GraphTreeProps> = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [chapters, selectedId]);
 
-    function getChapterGraph(
-        step: number,
-        nodes: IGraphNode[],
-        edges: IGraphEdge[]
-    ): IGraph {
-        if (step > 0) {
-            step -= 1;
-            getChapterGraph(step, nodes, edges);
-        }
-
-        return {
-            nodes,
-            edges,
-        };
-    }
-
     return (
         <GraphTreeStyled>
             <div className='graph-container'>
@@ -224,8 +226,3 @@ export const GraphTree: React.FC<GraphTreeProps> = () => {
         </GraphTreeStyled>
     );
 };
-
-function getChapterColor(chapter: IChapter) {
-    if (chapter.id === CONFIG.FIRST_CHAPTER_ID) return '#8299ff';
-    return 'white';
-}

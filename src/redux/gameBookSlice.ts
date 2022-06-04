@@ -1,48 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import type { RootState } from './store';
+import type { RootState, AppDispatch } from './store';
 import { IGameBookState, IChapter } from 'configuration/interfaces';
-import { faker } from '@faker-js/faker';
 import { v4 as uuidv4 } from 'uuid';
 import { CONFIG } from 'configuration';
+import { chapters } from './dummyData';
 
 const initialState: IGameBookState = {
     authorName: 'John Doe',
     gamebookTitle: 'Very new title',
     selectedId: undefined,
-    chapters: [
-        {
-            id: CONFIG.FIRST_CHAPTER_ID,
-            chapterNumber: 1,
-            title: 'First chapter - the journey begins.',
-            content: 'Link to chapter {2}, {4}, empty {}',
-            status: {
-                start: true,
-                fixed: true,
-                ready: true,
-            },
-        },
-        ...Array.from({ length: 5 }, (_, i) => {
-            return {
-                id: uuidv4(),
-                chapterNumber: i + 2,
-                title: faker.lorem.lines(1),
-                content:
-                    faker.lorem.paragraphs(1) +
-                    ` link to {${
-                        Math.floor(Math.random() * (i - 2)) + 6
-                    }}, link to {${
-                        Math.floor(Math.random() * (i - 2)) + 10
-                    }}, link to {}`,
-                status: {
-                    fixed: Math.random() < 0.5,
-                    // end: Math.random() < 0.9 && Math.random() > 0.85,
-                    dead: Math.random() < 0.92 && Math.random() > 0.9,
-                    win: Math.random() > 0.92,
-                    ready: faker.datatype.boolean(),
-                },
-            };
-        }),
-    ],
+    chapters: chapters,
 };
 
 export const gameBookStateSlice = createSlice({
@@ -66,6 +33,9 @@ export const gameBookStateSlice = createSlice({
         },
         setSelectedChapterId: (state, { payload }: PayloadAction<string>) => {
             state.selectedId = payload;
+        },
+        resetSelectedChapter: state => {
+            state.selectedId = undefined;
         },
         createNewChapter: (state, { payload }: PayloadAction<string>) => {
             const newId = uuidv4();
@@ -124,11 +94,36 @@ export const gameBookStateSlice = createSlice({
                         return {
                             ...chapter,
                             chapterNumber: index + 1,
+                            content: chapter.content
+                                ?.replaceAll(`{${payload.chapterNumber}}`, `{}`)
+                                .replace(/(\d+)/g, function (match) {
+                                    if (
+                                        parseInt(match) >
+                                            payload.chapterNumber &&
+                                        parseInt(match) <= state.chapters.length
+                                    )
+                                        return `${parseInt(match) - 1}`;
+                                    return match;
+                                }),
+                            status: {
+                                ...chapter.status,
+                                ready: chapter.content?.includes(
+                                    `{${payload.chapterNumber}}`
+                                )
+                                    ? undefined
+                                    : chapter?.status?.ready,
+                            },
                         };
                     });
 
                 state.selectedId = undefined;
             }
+        },
+        setShuffledChapters: (
+            state,
+            { payload }: PayloadAction<IChapter[]>
+        ) => {
+            state.chapters = payload;
         },
     },
 });
@@ -138,13 +133,56 @@ export const {
     setGamebookTitle,
     setGamebookInitialData,
     setSelectedChapterId,
+    resetSelectedChapter,
     createNewChapter,
     updateChapter,
     addNewChapter,
     deleteChapterById,
+    setShuffledChapters,
 } = gameBookStateSlice.actions;
 
 export const otherReducer = (state: RootState) => {
     // console.log(state.gamebook.chapters);
 };
+export const shuffleChapters =
+    () => (dispatch: AppDispatch, getState: Function) => {
+        dispatch(resetSelectedChapter());
+        const chapters = [...getState().gamebook.chapters];
+        // divide in two
+        let toShuffle = chapters
+            .map(ch => {
+                return {
+                    ...ch,
+                    oldNumber: ch.chapterNumber,
+                };
+            })
+            .filter(ch => !ch.status.fixed)
+            .map(value => ({ value, sort: Math.random() }))
+            .sort((a, b) => a.sort - b.sort)
+            .map(({ value }) => value);
+        let fxChapters = chapters.map(ch => (ch.status.fixed ? ch : null));
+        // rejoin arrays
+        for (let i = 0; i < chapters.length; i++) {
+            if (fxChapters[i] === null) {
+                let newCh = toShuffle.shift();
+                fxChapters[i] = { ...newCh, chapterNumber: i + 1 };
+            }
+        }
+        const oldNumbers = fxChapters.map(chapter => chapter.oldNumber);
+        fxChapters = fxChapters.map(chapter => {
+            return {
+                ...chapter,
+                content: chapter.content.replace(
+                    /\{(\d+)\}/g,
+                    function (match: string) {
+                        const number = parseInt(match.slice(1, -1));
+                        if (number > fxChapters.length) return `{${number}}`;
+                        return `{${oldNumbers.indexOf(number) + 1}}`;
+                    }
+                ),
+            };
+        });
+        console.log(fxChapters);
+        dispatch(setShuffledChapters(fxChapters));
+    };
 export default gameBookStateSlice.reducer;
