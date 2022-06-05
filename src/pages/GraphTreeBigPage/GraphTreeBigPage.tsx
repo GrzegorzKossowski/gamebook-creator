@@ -1,6 +1,6 @@
 import { Col, Row } from 'antd';
 import GraphTreeBig from 'components/GraphTreeBig';
-import TopMenu from 'components/TopMenu';
+import TopMenu from 'components/MenuTop';
 import React from 'react';
 import styled from 'styled-components';
 

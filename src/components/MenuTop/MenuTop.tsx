@@ -1,6 +1,7 @@
-import { Menu, MenuProps } from 'antd';
 import React from 'react';
+import { Menu, MenuProps } from 'antd';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faFileCirclePlus,
@@ -15,9 +16,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import ModalEditMetadata from 'components/ModalEditMetadata';
 import ModalNewChapter from 'components/ModalNewChapter';
-interface TopMenuProps {}
+import ModalShuffleChapter from 'components/ModalShuffleChapter';
+interface MenuTopProps {}
 
-const TopMenuStyled = styled.div`
+const MenuTopStyled = styled.div`
     // put some styles here
 `;
 
@@ -53,7 +55,7 @@ const items: MenuProps['items'] = [
             {
                 label: 'Schuffle chapters',
                 key: 'schuffleChapters',
-                disabled: true,
+                disabled: false,
                 icon: <FontAwesomeIcon icon={faDice} />,
             },
             {
@@ -98,7 +100,7 @@ const items: MenuProps['items'] = [
     {
         label: 'Html Preview',
         key: 'previewBook',
-        disabled: true,
+        disabled: false,
     },
     {
         label: 'Graph',
@@ -120,11 +122,14 @@ const items: MenuProps['items'] = [
     },
 ];
 
-export const TopMenu: React.FC<TopMenuProps> = () => {
+export const MenuTop: React.FC<MenuTopProps> = () => {
+    let navigate = useNavigate();
     const [current, setCurrent] = React.useState('');
     const [isModalEditMetadataVisible, setIsModalEditMetadataVisible] =
         React.useState(false);
     const [isModalNewChapterVisible, setIsModalNewChapterVisible] =
+        React.useState(false);
+    const [isVisibleModalShuffleChapter, setIsVisibleModalShuffleChapter] =
         React.useState(false);
 
     const onClick: MenuProps['onClick'] = e => {
@@ -136,20 +141,26 @@ export const TopMenu: React.FC<TopMenuProps> = () => {
             case 'metadata':
                 setIsModalEditMetadataVisible(true);
                 break;
+            case 'schuffleChapters':
+                setIsVisibleModalShuffleChapter(true);
+                break;
+            case 'previewBook':
+                navigate(`/preview`);
+                break;
             default:
                 break;
         }
     };
     return (
         <>
-            <TopMenuStyled>
+            <MenuTopStyled>
                 <Menu
                     onClick={onClick}
                     selectedKeys={[current]}
                     mode='horizontal'
                     items={items}
                 />
-            </TopMenuStyled>
+            </MenuTopStyled>
             <ModalEditMetadata
                 isVisible={isModalEditMetadataVisible}
                 setIsVisible={setIsModalEditMetadataVisible}
@@ -157,6 +168,10 @@ export const TopMenu: React.FC<TopMenuProps> = () => {
             <ModalNewChapter
                 isVisible={isModalNewChapterVisible}
                 setIsVisible={setIsModalNewChapterVisible}
+            />
+            <ModalShuffleChapter
+                isVisible={isVisibleModalShuffleChapter}
+                setIsVisible={setIsVisibleModalShuffleChapter}
             />
         </>
     );

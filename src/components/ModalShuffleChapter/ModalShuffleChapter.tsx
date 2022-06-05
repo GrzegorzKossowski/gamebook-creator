@@ -1,9 +1,7 @@
-import { Button, Divider, Modal, Space, notification, Typography } from 'antd';
-import { CONFIG } from 'configuration';
-import { IChapter } from 'configuration/interfaces';
+import { Button, Modal, Space, notification, Typography } from 'antd';
 import React from 'react';
-import { deleteChapterById, shuffleChapters } from 'redux/gameBookSlice';
-import { useAppSelector, useAppDispatch } from 'redux/reduxHooks';
+import { shuffleChapters } from 'redux/gameBookSlice';
+import { useAppDispatch } from 'redux/reduxHooks';
 import styled from 'styled-components';
 
 interface ModalShuffleChapterProps {
@@ -15,7 +13,7 @@ const ModalShuffleChapterStyled = styled.div`
     // put some styles here
 `;
 
-const { Text, Title } = Typography;
+const { Text } = Typography;
 
 export const ModalShuffleChapter: React.FC<ModalShuffleChapterProps> = ({
     isVisible,

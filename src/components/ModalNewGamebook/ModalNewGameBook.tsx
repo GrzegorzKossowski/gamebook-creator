@@ -1,7 +1,7 @@
 import { Button, Form, Input, Modal } from 'antd';
 import React from 'react';
 import styled from 'styled-components';
-import { useAppDispatch, useAppSelector } from 'redux/reduxHooks';
+import { useAppDispatch } from 'redux/reduxHooks';
 import { setGamebookInitialData } from 'redux/gameBookSlice';
 import { useNavigate } from 'react-router-dom';
 import { CONFIG } from 'configuration';

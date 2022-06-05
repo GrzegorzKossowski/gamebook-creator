@@ -2,13 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {
     Button,
-    Checkbox,
-    Col,
-    Form,
     Input,
-    Modal,
-    Row,
-    Space,
     Typography,
 } from 'antd';
 import { useAppDispatch, useAppSelector } from 'redux/reduxHooks';
@@ -16,15 +10,6 @@ import { setSelectedChapterId } from 'redux/gameBookSlice';
 import ChapterStatus from './ChapterStatus';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    faSkullCrossbones,
-    faTrophy,
-    faPlay,
-    faCircleCheck,
-    faCircleXmark,
-    faCircleStop,
-    faThumbTack,
-    faPlusCircle,
-    faFloppyDisk,
     faFileCirclePlus,
 } from '@fortawesome/free-solid-svg-icons';
 import ModalNewChapter from 'components/ModalNewChapter';

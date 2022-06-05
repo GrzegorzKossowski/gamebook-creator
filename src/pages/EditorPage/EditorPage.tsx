@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import ChaptersTree from 'components/ChaptersTree';
 import ChapterEditor from 'components/ChapterEditor';
 import GraphTree from 'components/GraphTree';
-import TopMenu from 'components/TopMenu';
+import TopMenu from 'components/MenuTop';
 
 interface IEditorPageProps {}
 

@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import LazySuspense from 'components/LazySuspense';
 import HomePage from 'pages/HomePage';
 import EditorPage from 'pages/EditorPage';
+import PreviewPage from 'pages/PreviewPage';
 // const HomePage = React.lazy(() => import('./pages/HomePage'));
 // const EditorPage = React.lazy(() => import('./pages/EditorPage'));
 // import GraphTreeBig from 'components/GraphTreeBig';
@@ -24,6 +25,10 @@ function App() {
             <Route
                 path='editor'
                 element={<LazySuspense component={<EditorPage />} />}
+            />
+            <Route
+                path='preview'
+                element={<LazySuspense component={<PreviewPage />} />}
             />
             <Route
                 path='graph'

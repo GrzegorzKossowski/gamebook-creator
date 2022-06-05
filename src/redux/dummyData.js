@@ -109,15 +109,16 @@ export const chapters = [
     },
   },
   /**/
-   ...Array.from({ length: 5 }, (_, i) => {
+   ...Array.from({ length: 30 }, (_, i) => {
      return {
        id: uuidv4(),
        chapterNumber: i + 8,
        oldNumber: i + 8,
       title: faker.lorem.lines(1),
       content:
-      faker.lorem.lines(1) +
-      `\nNext chapters {${i + 3}} {${i + 5
+      faker.lorem.paragraphs(Math.floor(Math.random() * (6 - 2)) + 2) +
+      `\nNext chapters {${i + 9}} {${i + 25
+      }},\nlink to random near {${Math.floor(Math.random() * (i)) + 16
       }},\nlink to random distant {${Math.floor(Math.random() * (i - 2)) + 100
       }},\nlink to empty {}`,
       status: {

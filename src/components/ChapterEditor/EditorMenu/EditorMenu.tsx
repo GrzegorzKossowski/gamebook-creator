@@ -44,9 +44,6 @@ export const EditorMenu: React.FC<EditorMenuProps> = () => {
     };
     const handleShowShuffleChapterModal = () => {
         setIsVisibleModalShuffleChapter(true);
-
-        // TODO: skasować dispach po testach shufflowania
-        // dispatch(shuffleChapters());
     };
     return (
         <>

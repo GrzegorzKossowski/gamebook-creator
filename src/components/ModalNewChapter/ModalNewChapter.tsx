@@ -1,28 +1,8 @@
-import {
-    Button,
-    Checkbox,
-    Col,
-    Form,
-    Input,
-    InputRef,
-    Modal,
-    Row,
-    message,
-    notification,
-} from 'antd';
+import { Button, Form, Input, Modal, notification } from 'antd';
 import React from 'react';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from 'redux/reduxHooks';
 import { createNewChapter } from 'redux/gameBookSlice';
-import { setGamebookInitialData } from 'redux/gameBookSlice';
-import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faCircleCheck,
-    faSkullCrossbones,
-    faThumbTack,
-    faTrophy,
-} from '@fortawesome/free-solid-svg-icons';
 import { CONFIG } from 'configuration';
 
 interface ModalNewChapterProps {
@@ -40,7 +20,6 @@ export const ModalNewChapter: React.FC<ModalNewChapterProps> = ({
 }) => {
     const [form] = Form.useForm();
     const dispach = useAppDispatch();
-    const { chapters } = useAppSelector(state => state.gamebook);
 
     const handleCancel = () => {
         setIsVisible(false);

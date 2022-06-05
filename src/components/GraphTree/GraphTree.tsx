@@ -1,15 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useAppSelector } from 'redux/reduxHooks';
-import {
-    IChapter,
-    IGraph,
-    IGraphEdge,
-    IGraphNode,
-} from 'configuration/interfaces';
+import { useAppDispatch, useAppSelector } from 'redux/reduxHooks';
+import { IGraph, IGraphEdge, IGraphNode } from 'configuration/interfaces';
 import { v4 as uuidv4 } from 'uuid';
 import Graph from 'react-graph-vis';
-import { CONFIG } from 'configuration';
+import { setSelectedChapterId } from 'redux/gameBookSlice';
 
 interface GraphTreeProps {}
 
@@ -46,15 +41,10 @@ const options = {
     width: '100%',
 };
 
-const events = {
-    select: function (event: any) {
-        var { nodes, edges } = event;
-    },
-};
-
 export const GraphTree: React.FC<GraphTreeProps> = () => {
     const { chapters, selectedId } = useAppSelector(state => state.gamebook);
     const [graph, setGraph] = React.useState<IGraph>(initialGraph);
+    const dipsatch = useAppDispatch();
 
     React.useEffect(() => {
         // pobierz id dla wszystkich, bo sie przyda
@@ -76,7 +66,7 @@ export const GraphTree: React.FC<GraphTreeProps> = () => {
                     color: '#0050b3',
                     font: {
                         color: 'white',
-                    }
+                    },
                 },
             ];
             // sprawdź Empty chapter, dodaj empty chapter
@@ -212,6 +202,15 @@ export const GraphTree: React.FC<GraphTreeProps> = () => {
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [chapters, selectedId]);
+
+    const events = {
+        select: function (event: any) {
+            var { nodes, edges } = event;
+            if (nodes.length === 1) {
+                dipsatch(setSelectedChapterId(nodes[0]));
+            }
+        },
+    };
 
     return (
         <GraphTreeStyled>

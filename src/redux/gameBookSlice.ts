@@ -86,7 +86,6 @@ export const gameBookStateSlice = createSlice({
             });
         },
         deleteChapterById: (state, { payload }: PayloadAction<IChapter>) => {
-            console.log('deleting', payload, payload.chapterNumber);
             if (payload.id !== CONFIG.FIRST_CHAPTER_ID) {
                 state.chapters = state.chapters
                     .filter(chapter => chapter.id !== payload.id)
@@ -141,9 +140,7 @@ export const {
     setShuffledChapters,
 } = gameBookStateSlice.actions;
 
-export const otherReducer = (state: RootState) => {
-    // console.log(state.gamebook.chapters);
-};
+export const otherReducer = (state: RootState) => {};
 export const shuffleChapters =
     () => (dispatch: AppDispatch, getState: Function) => {
         dispatch(resetSelectedChapter());
@@ -182,7 +179,6 @@ export const shuffleChapters =
                 ),
             };
         });
-        console.log(fxChapters);
         dispatch(setShuffledChapters(fxChapters));
     };
 export default gameBookStateSlice.reducer;

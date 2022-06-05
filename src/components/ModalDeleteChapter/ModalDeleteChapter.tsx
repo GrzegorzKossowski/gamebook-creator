@@ -1,7 +1,7 @@
+import React from 'react';
 import { Button, Divider, Modal, Space, notification, Typography } from 'antd';
 import { CONFIG } from 'configuration';
 import { IChapter } from 'configuration/interfaces';
-import React from 'react';
 import { deleteChapterById } from 'redux/gameBookSlice';
 import { useAppSelector, useAppDispatch } from 'redux/reduxHooks';
 import styled from 'styled-components';
@@ -15,7 +15,7 @@ const ModalDeleteChapterStyled = styled.div`
     // put some styles here
 `;
 
-const { Text, Title } = Typography;
+const { Text } = Typography;
 
 export const ModalDeleteChapter: React.FC<ModalDeleteChapterProps> = ({
     isVisible,

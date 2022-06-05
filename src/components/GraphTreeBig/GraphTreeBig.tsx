@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Typography } from 'antd';
-import { useAppDispatch, useAppSelector } from 'redux/reduxHooks';
+import { useAppSelector } from 'redux/reduxHooks';
 import { IChapter, IGraph, IGraphEdge } from 'configuration/interfaces';
 import { v4 as uuidv4 } from 'uuid';
 // import Graph from 'react-graph-vis';
