@@ -1,21 +1,37 @@
 {
   "files": {
     "main.css": "/gamebook-creator/static/css/main.86644c20.css",
-    "main.js": "/gamebook-creator/static/js/main.4a2980ab.js",
-    "static/js/211.6ba60a22.chunk.js": "/gamebook-creator/static/js/211.6ba60a22.chunk.js",
+    "main.js": "/gamebook-creator/static/js/main.e719638a.js",
+    "static/js/644.c21a1946.chunk.js": "/gamebook-creator/static/js/644.c21a1946.chunk.js",
+    "static/js/131.33655e59.chunk.js": "/gamebook-creator/static/js/131.33655e59.chunk.js",
+    "static/js/997.df2c5d58.chunk.js": "/gamebook-creator/static/js/997.df2c5d58.chunk.js",
+    "static/js/211.71917007.chunk.js": "/gamebook-creator/static/js/211.71917007.chunk.js",
     "static/js/380.75dd1610.chunk.js": "/gamebook-creator/static/js/380.75dd1610.chunk.js",
     "static/js/787.52164f28.chunk.js": "/gamebook-creator/static/js/787.52164f28.chunk.js",
-    "static/js/63.c5c9743a.chunk.js": "/gamebook-creator/static/js/63.c5c9743a.chunk.js",
+    "static/js/309.4a90fc72.chunk.js": "/gamebook-creator/static/js/309.4a90fc72.chunk.js",
+    "static/js/964.770b6099.chunk.js": "/gamebook-creator/static/js/964.770b6099.chunk.js",
+    "static/js/254.6c633414.chunk.js": "/gamebook-creator/static/js/254.6c633414.chunk.js",
+    "static/js/42.6525227c.chunk.js": "/gamebook-creator/static/js/42.6525227c.chunk.js",
+    "static/js/450.58d537fd.chunk.js": "/gamebook-creator/static/js/450.58d537fd.chunk.js",
+    "static/js/63.82af8b9a.chunk.js": "/gamebook-creator/static/js/63.82af8b9a.chunk.js",
     "index.html": "/gamebook-creator/index.html",
     "main.86644c20.css.map": "/gamebook-creator/static/css/main.86644c20.css.map",
-    "main.4a2980ab.js.map": "/gamebook-creator/static/js/main.4a2980ab.js.map",
-    "211.6ba60a22.chunk.js.map": "/gamebook-creator/static/js/211.6ba60a22.chunk.js.map",
+    "main.e719638a.js.map": "/gamebook-creator/static/js/main.e719638a.js.map",
+    "644.c21a1946.chunk.js.map": "/gamebook-creator/static/js/644.c21a1946.chunk.js.map",
+    "131.33655e59.chunk.js.map": "/gamebook-creator/static/js/131.33655e59.chunk.js.map",
+    "997.df2c5d58.chunk.js.map": "/gamebook-creator/static/js/997.df2c5d58.chunk.js.map",
+    "211.71917007.chunk.js.map": "/gamebook-creator/static/js/211.71917007.chunk.js.map",
     "380.75dd1610.chunk.js.map": "/gamebook-creator/static/js/380.75dd1610.chunk.js.map",
     "787.52164f28.chunk.js.map": "/gamebook-creator/static/js/787.52164f28.chunk.js.map",
-    "63.c5c9743a.chunk.js.map": "/gamebook-creator/static/js/63.c5c9743a.chunk.js.map"
+    "309.4a90fc72.chunk.js.map": "/gamebook-creator/static/js/309.4a90fc72.chunk.js.map",
+    "964.770b6099.chunk.js.map": "/gamebook-creator/static/js/964.770b6099.chunk.js.map",
+    "254.6c633414.chunk.js.map": "/gamebook-creator/static/js/254.6c633414.chunk.js.map",
+    "42.6525227c.chunk.js.map": "/gamebook-creator/static/js/42.6525227c.chunk.js.map",
+    "450.58d537fd.chunk.js.map": "/gamebook-creator/static/js/450.58d537fd.chunk.js.map",
+    "63.82af8b9a.chunk.js.map": "/gamebook-creator/static/js/63.82af8b9a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.86644c20.css",
-    "static/js/main.4a2980ab.js"
+    "static/js/main.e719638a.js"
   ]
 }
