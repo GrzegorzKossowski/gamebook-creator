@@ -6,8 +6,8 @@ import { CONFIG } from 'configuration';
 import { chapters } from './dummyData';
 
 const initialState: IGameBookState = {
-    authorName: 'John Doe',
-    gamebookTitle: 'Very new title',
+    authorName: '',
+    gamebookTitle: '',
     selectedId: undefined,
     chapters: chapters,
 };
@@ -141,6 +141,7 @@ export const {
 } = gameBookStateSlice.actions;
 
 export const otherReducer = (state: RootState) => {};
+
 export const shuffleChapters =
     () => (dispatch: AppDispatch, getState: Function) => {
         dispatch(resetSelectedChapter());

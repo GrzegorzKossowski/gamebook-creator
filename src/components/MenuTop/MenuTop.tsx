@@ -103,6 +103,11 @@ const items: MenuProps['items'] = [
         disabled: false,
     },
     {
+        label: 'Play',
+        key: 'playBook',
+        disabled: false,
+    },
+    {
         label: 'Graph',
         key: 'graphBook',
         disabled: true,
@@ -146,6 +151,9 @@ export const MenuTop: React.FC<MenuTopProps> = () => {
                 break;
             case 'previewBook':
                 navigate(`/preview`);
+                break;
+            case 'playBook':
+                navigate(`/play`);
                 break;
             default:
                 break;

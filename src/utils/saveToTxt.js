@@ -35,7 +35,7 @@ function loadFileAsText()
 }
 
 
-===============================
+//===============================
 
 //javascript
 function download(text, name, type) {
@@ -45,8 +45,8 @@ function download(text, name, type) {
   a.download = name;
 }
 //html
-<a href="" id="a">click here to download your file</a>
-<button onclick="download('file text', 'myfilename.txt', 'text/plain')">Create file</button>
+{/* <a href="" id="a">click here to download your file</a>
+<button onclick="download('file text', 'myfilename.txt', 'text/plain')">Create file</button> */}
 
-==================================
+//==================================
 

@@ -7,7 +7,7 @@ import {
 } from 'antd';
 import { useAppDispatch, useAppSelector } from 'redux/reduxHooks';
 import { setSelectedChapterId } from 'redux/gameBookSlice';
-import ChapterStatus from './ChapterStatus';
+import ChapterStatus from '../ChapterStatus';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faFileCirclePlus,
