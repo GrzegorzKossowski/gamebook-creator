@@ -1,11 +1,11 @@
 {
   "files": {
     "main.css": "/gamebook-creator/static/css/main.5123a201.css",
-    "main.js": "/gamebook-creator/static/js/main.eec3904d.js",
+    "main.js": "/gamebook-creator/static/js/main.e2f8296b.js",
     "static/js/644.c21a1946.chunk.js": "/gamebook-creator/static/js/644.c21a1946.chunk.js",
     "static/js/131.43657575.chunk.js": "/gamebook-creator/static/js/131.43657575.chunk.js",
     "static/js/598.922290ae.chunk.js": "/gamebook-creator/static/js/598.922290ae.chunk.js",
-    "static/js/14.09712712.chunk.js": "/gamebook-creator/static/js/14.09712712.chunk.js",
+    "static/js/14.7b25a132.chunk.js": "/gamebook-creator/static/js/14.7b25a132.chunk.js",
     "static/js/211.75236ca6.chunk.js": "/gamebook-creator/static/js/211.75236ca6.chunk.js",
     "static/js/380.75dd1610.chunk.js": "/gamebook-creator/static/js/380.75dd1610.chunk.js",
     "static/js/787.52164f28.chunk.js": "/gamebook-creator/static/js/787.52164f28.chunk.js",
@@ -17,11 +17,11 @@
     "static/js/63.82af8b9a.chunk.js": "/gamebook-creator/static/js/63.82af8b9a.chunk.js",
     "index.html": "/gamebook-creator/index.html",
     "main.5123a201.css.map": "/gamebook-creator/static/css/main.5123a201.css.map",
-    "main.eec3904d.js.map": "/gamebook-creator/static/js/main.eec3904d.js.map",
+    "main.e2f8296b.js.map": "/gamebook-creator/static/js/main.e2f8296b.js.map",
     "644.c21a1946.chunk.js.map": "/gamebook-creator/static/js/644.c21a1946.chunk.js.map",
     "131.43657575.chunk.js.map": "/gamebook-creator/static/js/131.43657575.chunk.js.map",
     "598.922290ae.chunk.js.map": "/gamebook-creator/static/js/598.922290ae.chunk.js.map",
-    "14.09712712.chunk.js.map": "/gamebook-creator/static/js/14.09712712.chunk.js.map",
+    "14.7b25a132.chunk.js.map": "/gamebook-creator/static/js/14.7b25a132.chunk.js.map",
     "211.75236ca6.chunk.js.map": "/gamebook-creator/static/js/211.75236ca6.chunk.js.map",
     "380.75dd1610.chunk.js.map": "/gamebook-creator/static/js/380.75dd1610.chunk.js.map",
     "787.52164f28.chunk.js.map": "/gamebook-creator/static/js/787.52164f28.chunk.js.map",
@@ -34,6 +34,6 @@
   },
   "entrypoints": [
     "static/css/main.5123a201.css",
-    "static/js/main.eec3904d.js"
+    "static/js/main.e2f8296b.js"
   ]
 }
