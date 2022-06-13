@@ -4,7 +4,7 @@ import { Typography, Button } from 'antd';
 import { useAppDispatch, useAppSelector } from 'redux/reduxHooks';
 import reactStringReplace from 'react-string-replace';
 import { v4 as uuidv4 } from 'uuid';
-// import { setSelectedChapterId } from 'redux/gameBookSlice';
+import { setSelectedChapterId } from 'redux/gameBookSlice';
 import { CONFIG } from 'configuration';
 import ChapterStatus from 'components/ChapterStatus';
 
@@ -38,17 +38,15 @@ export const ChapterSingleShow: React.FC<ChapterSingleShowProps> = () => {
     React.useEffect(() => {
         setLinks(() => chapters.map(chapter => chapter.id));
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        if (!selectedId){
-            // TODO: zaimplementować zaznaczanie rozdziału
-            // dispatch(setSelectedChapterId(CONFIG.FIRST_CHAPTER_ID));
+        if (!selectedId) {
+            dispatch(setSelectedChapterId(CONFIG.FIRST_CHAPTER_ID));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleOnClick = React.useCallback((e: string) => {
         console.log(e);
-        // TODO: zaimplementować zaznaczanie rozdziału
-        // dispatch(setSelectedChapterId(e));
+        dispatch(setSelectedChapterId(e));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -57,18 +55,24 @@ export const ChapterSingleShow: React.FC<ChapterSingleShowProps> = () => {
         let textToDisplay = reactStringReplace(text, /(\n)+/g, (match, i) => {
             return <br />;
         });
-        textToDisplay = reactStringReplace(textToDisplay, /\{(\d+)\}/g, (match, i) => {
-            const link = links[parseInt(match) - 1];
-            return link ? (
-                <span key={uuidv4()}>
-                    <Button onClick={() => handleOnClick(link)}>{match}</Button>
-                </span>
-            ) : (
-                <span key={uuidv4()} style={{ color: '#ffd000' }}>
-                    [{match}]
-                </span>
-            );
-        });
+        textToDisplay = reactStringReplace(
+            textToDisplay,
+            /\{(\d+)\}/g,
+            (match, i) => {
+                const link = links[parseInt(match) - 1];
+                return link ? (
+                    <span key={uuidv4()}>
+                        <Button onClick={() => handleOnClick(link)}>
+                            {match}
+                        </Button>
+                    </span>
+                ) : (
+                    <span key={uuidv4()} style={{ color: '#ffd000' }}>
+                        [{match}]
+                    </span>
+                );
+            }
+        );
         return reactStringReplace(textToDisplay, /\{\}/g, (match, i) => {
             return (
                 <span key={uuidv4()} style={{ color: '#ff2f00' }}>

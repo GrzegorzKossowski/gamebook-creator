@@ -8,17 +8,19 @@ import {
     faFolderOpen,
     faDice,
     faBook,
-    faFileLines,
-    faFilePdf,
     faFileCode,
     faChartPie,
-    faBookOpen,
+    faBookBookmark,
+    faFileSignature,
+    faFloppyDisk,
 } from '@fortawesome/free-solid-svg-icons';
-import ModalEditMetadata from 'components/ModalEditMetadata';
-import ModalNewChapter from 'components/ModalNewChapter';
-import ModalShuffleChapter from 'components/ModalShuffleChapter';
 import { useAppDispatch } from 'redux/reduxHooks';
 import { dropDB } from 'redux/gameBookSlice';
+import ModalEditMetadata from 'components/ModalEditMetadata';
+import ModalShuffleChapter from 'components/ModalShuffleChapter';
+import ModalNewChapter from 'components/ModalNewChapter';
+import ModalExportToFile from 'components/ModalExportToFile';
+
 interface MenuTopProps {}
 
 const MenuTopStyled = styled.div`
@@ -29,7 +31,7 @@ const items: MenuProps['items'] = [
     {
         label: 'File',
         key: 'File',
-        disabled: true,
+        disabled: false,
         children: [
             {
                 label: 'New book',
@@ -42,6 +44,12 @@ const items: MenuProps['items'] = [
                 key: 'openExisting',
                 icon: <FontAwesomeIcon icon={faFolderOpen} />,
                 disabled: true,
+            },
+            {
+                label: 'Export',
+                key: 'exportBook',
+                disabled: false,
+                icon: <FontAwesomeIcon icon={faFloppyDisk} />,
             },
         ],
     },
@@ -61,41 +69,22 @@ const items: MenuProps['items'] = [
                 icon: <FontAwesomeIcon icon={faDice} />,
             },
             {
-                label: 'Statistics',
-                key: 'bookStatistics',
+                label: 'Introduction',
+                key: 'introduction',
                 disabled: true,
-                icon: <FontAwesomeIcon icon={faChartPie} />,
+                icon: <FontAwesomeIcon icon={faFileSignature} />,
             },
             {
                 label: 'Metadata',
                 key: 'metadata',
                 disabled: false,
-                icon: <FontAwesomeIcon icon={faBookOpen} />,
-            },
-        ],
-    },
-    {
-        label: 'Export',
-        key: 'exportBook',
-        disabled: true,
-        children: [
-            {
-                label: 'Export to HTML',
-                key: 'exportHtml',
-                disabled: true,
-                icon: <FontAwesomeIcon icon={faFileCode} />,
+                icon: <FontAwesomeIcon icon={faBookBookmark} />,
             },
             {
-                label: 'Export to PDF',
-                key: 'exportPdf',
+                label: 'Statistics',
+                key: 'bookStatistics',
                 disabled: true,
-                icon: <FontAwesomeIcon icon={faFilePdf} />,
-            },
-            {
-                label: 'Export to TXT',
-                key: 'exportTxt',
-                disabled: true,
-                icon: <FontAwesomeIcon icon={faFileLines} />,
+                icon: <FontAwesomeIcon icon={faChartPie} />,
             },
         ],
     },
@@ -130,20 +119,22 @@ const items: MenuProps['items'] = [
     {
         label: 'DropDB',
         key: 'dropDB',
-        disabled: false,
-        danger: true
+        disabled: true,
+        danger: true,
     },
 ];
 
 export const MenuTop: React.FC<MenuTopProps> = () => {
     let navigate = useNavigate();
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
     const [current, setCurrent] = React.useState('');
     const [isModalEditMetadataVisible, setIsModalEditMetadataVisible] =
-        React.useState(true);
+        React.useState(false);
     const [isModalNewChapterVisible, setIsModalNewChapterVisible] =
         React.useState(false);
     const [isVisibleModalShuffleChapter, setIsVisibleModalShuffleChapter] =
+        React.useState(false);
+    const [isVisibleModalExportToFile, setIsVisibleModalExportToFile] =
         React.useState(false);
 
     const onClick: MenuProps['onClick'] = e => {
@@ -158,6 +149,9 @@ export const MenuTop: React.FC<MenuTopProps> = () => {
             case 'schuffleChapters':
                 setIsVisibleModalShuffleChapter(true);
                 break;
+            case 'exportBook':
+                setIsVisibleModalExportToFile(true);
+                break;
             case 'previewBook':
                 navigate(`/preview`);
                 break;
@@ -165,7 +159,8 @@ export const MenuTop: React.FC<MenuTopProps> = () => {
                 navigate(`/play`);
                 break;
             case 'dropDB':
-                dispatch(dropDB())
+                dispatch(dropDB());
+                navigate(`/`);
                 break;
             default:
                 break;
@@ -192,6 +187,10 @@ export const MenuTop: React.FC<MenuTopProps> = () => {
             <ModalShuffleChapter
                 isVisible={isVisibleModalShuffleChapter}
                 setIsVisible={setIsVisibleModalShuffleChapter}
+            />
+            <ModalExportToFile
+                isVisible={isVisibleModalExportToFile}
+                setIsVisible={setIsVisibleModalExportToFile}
             />
         </>
     );

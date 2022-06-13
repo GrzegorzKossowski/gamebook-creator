@@ -22,7 +22,7 @@ const ChapterEditorStyled = styled.div`
     height: 100%;
     textarea {
         width: 100%;
-        height: 50vh;
+        height: calc(80vh - 155px);
         padding: 12px 20px;
         font-size: 1.2rem;
         resize: none;
@@ -62,7 +62,6 @@ export const ChapterEditor: React.FC<ChapterEditorProps> = () => {
     const onFinish = (values: any) => {
         // save new chapter
         if (!selectedId) {
-            // TODO: zaimplementować dodawanie rozdziału
             dispatch(
                 createNewChapterDB({
                     id: '',
@@ -81,7 +80,6 @@ export const ChapterEditor: React.FC<ChapterEditorProps> = () => {
         // save selected chapter
         const chapterToUpdate = chapters.find(ch => ch.id === selectedId);
         if (chapterToUpdate) {
-            // TODO: zaimplementować update rozdziału
             dispatch(
                 updateChapterDB({
                     ...chapterToUpdate,
@@ -195,7 +193,7 @@ export const ChapterEditor: React.FC<ChapterEditorProps> = () => {
                         </Form.Item>
                     </Col>
                 </Row>
-                <Form.Item name='content' className='chapter-editor_textarea'>
+                <Form.Item name='content'>
                     <Input.TextArea
                         placeholder={
                             selectedId

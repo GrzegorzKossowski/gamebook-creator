@@ -1,26 +1,14 @@
-import {
-    Button,
-    Col,
-    Modal,
-    Row,
-    Space,
-    Typography,
-    notification,
-    Form,
-    Input,
-} from 'antd';
+import { Button, Modal, Space, notification, Form, Input } from 'antd';
 import React from 'react';
 import styled from 'styled-components';
-import { HighlightOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from 'redux/reduxHooks';
 import { CONFIG } from 'configuration';
-// import { setGamebookAuthor, setGamebookTitle } from 'redux/gameBookSlice';
+import { updateMetadataDB } from 'redux/gameBookSlice';
 
 interface ModalEditMetadataProps {
     isVisible: boolean;
     setIsVisible: Function;
 }
-const { Paragraph, Title } = Typography;
 
 const ModalEditMetadataStyled = styled.div`
     // put some styles here
@@ -35,48 +23,25 @@ export const ModalEditMetadata: React.FC<ModalEditMetadataProps> = ({
         state => state.gamebook
     );
     const [form] = Form.useForm();
-    // const [author, setAuthor] = React.useState(authorName);
-    // const [title, setTitle] = React.useState(gamebookTitle);
-    // React.useEffect(() => {
-    //     setAuthor(authorName);
-    //     setTitle(gamebookTitle);
-    // }, [authorName, gamebookTitle]);
-    React.useEffect(() => {
-        form.setFieldsValue({
-            authorName,
-            gamebookTitle,
-        });
-        return () => {};
-    }, [authorName, form, gamebookTitle]);
 
-    const handleMetadataChange = () => {
-        // TODO: zaimplementować edycję metadata
-        // dispatch(setGamebookAuthor(author));
-        // dispatch(setGamebookTitle(title));
-        // setIsVisible(false);
-    };
     const onFinish = async (values: any) => {
         const { authorName, gamebookTitle } = values;
         authorName.trim();
         gamebookTitle.trim();
-        // TODO: zaimplementować edycję metadata
-        // dispatch(setGamebookAuthor(author));
-        // dispatch(setGamebookTitle(title));
-        // ?? dispach(createNewGamebookDB({ authorName, gamebookTitle }));
-        // notification['success']({
-        //     message: 'Metadata changed',
-        //     description: `${author}, creator of "${title}" saved.`,
-        //     placement: 'bottomRight',
-        // });
-        // form.resetFields();
-        // setIsVisible(false);
+        dispatch(updateMetadataDB({ authorName, gamebookTitle }));
+        notification['success']({
+            message: 'Metadata changed',
+            description: `${authorName}, creator of "${gamebookTitle}" saved.`,
+            placement: 'bottomRight',
+        });
+        setIsVisible(false);
+        form.resetFields();
     };
     const handleCancel = () => {
         form.resetFields();
         setIsVisible(false);
     };
 
-    // TODO: zaimplementować formularz, żeby go validować
     return (
         <ModalEditMetadataStyled>
             <Modal
@@ -92,10 +57,9 @@ export const ModalEditMetadata: React.FC<ModalEditMetadataProps> = ({
                     requiredMark='optional'
                     onFinish={onFinish}
                     initialValues={{
-                        authorName, gamebookTitle
-                    }
-
-                    }
+                        authorName,
+                        gamebookTitle,
+                    }}
                 >
                     <Form.Item
                         label={`Author's name`}
@@ -154,40 +118,3 @@ export const ModalEditMetadata: React.FC<ModalEditMetadataProps> = ({
         </ModalEditMetadataStyled>
     );
 };
-
-/* <Title level={5}>Author</Title>
-                <Paragraph
-                    editable={{
-                        icon: <HighlightOutlined />,
-                        tooltip: 'click to edit text',
-                        onChange: setAuthor,
-                    }}
-                >
-                    {author}
-                </Paragraph>
-                <Title level={5}>Title</Title>
-                <Paragraph
-                    editable={{
-                        icon: <HighlightOutlined />,
-                        tooltip: 'click to edit text',
-                        onChange: setTitle,
-                    }}
-                >
-                    {title}
-                </Paragraph>
-                <Row>
-                    <Col
-                        span={24}
-                        style={{ display: 'flex', justifyContent: 'end' }}
-                    >
-                        <Space direction='horizontal' size='large'>
-                            <Button onClick={handleCancel}>Cancel</Button>
-                            <Button
-                                type='primary'
-                                onClick={handleMetadataChange}
-                            >
-                                Save
-                            </Button>
-                        </Space>
-                    </Col>
-                </Row> */

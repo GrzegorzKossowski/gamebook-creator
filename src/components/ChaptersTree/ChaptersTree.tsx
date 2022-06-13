@@ -53,7 +53,6 @@ export const ChaptersTree: React.FC<IChaptersTreeProps> = () => {
 
     const handleClick = (id: string) => {
         setSelectedIdState(id);
-        // TODO: zaimplementować wybieranie rozdziału
         dispach(setSelectedChapterId(id));
     };
 
@@ -101,9 +100,7 @@ export const ChaptersTree: React.FC<IChaptersTreeProps> = () => {
                                     onClick={() => handleClick(chapter.id)}
                                 >
                                     <Text>
-                                        {`${
-                                            chapter.chapterNumber
-                                        }) ix: ${index} - ${
+                                        {`${chapter.chapterNumber}) ${
                                             chapter.title.length > 25
                                                 ? chapter.title.slice(0, 25) +
                                                   '...'

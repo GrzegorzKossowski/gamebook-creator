@@ -58,6 +58,7 @@
     "devDependencies": {
         "@types/styled-components": "^5.1.25",
         "@types/uuid": "^8.3.4",
+        "@types/wicg-file-system-access": "^2020.9.5",
         "gh-pages": "^4.0.0"
     }
 }

@@ -73,7 +73,10 @@ export const gameBookStateSlice = createSlice({
             state.chapters = [...state.chapters, { ...payload }];
             state.selectedId = payload.id;
         },
-        setSelectedChapterId: (state, { payload }: PayloadAction<string>) => {
+        setSelectedChapterId: (
+            state,
+            { payload }: PayloadAction<string | undefined>
+        ) => {
             state.selectedId = payload;
         },
         updateChapter: (state, { payload }: PayloadAction<IChapter>) => {
@@ -96,6 +99,39 @@ export const gameBookStateSlice = createSlice({
         },
         resetSelectedChapter: state => {
             state.selectedId = undefined;
+        },
+
+        deleteChapterById: (state, { payload }: PayloadAction<IChapter>) => {
+            //     if (payload.id !== CONFIG.FIRST_CHAPTER_ID) {
+            //         state.chapters = state.chapters
+            //             .filter(chapter => chapter.id !== payload.id)
+            //             .map((chapter, index) => {
+            //                 return {
+            //                     ...chapter,
+            //                     chapterNumber: index + 1,
+            //                     content: chapter.content
+            //                         ?.replaceAll(`{${payload.chapterNumber}}`, `{}`)
+            //                         .replace(/(\d+)/g, function (match) {
+            //                             if (
+            //                                 parseInt(match) >
+            //                                     payload.chapterNumber &&
+            //                                 parseInt(match) <= state.chapters.length
+            //                             )
+            //                                 return `${parseInt(match) - 1}`;
+            //                             return match;
+            //                         }),
+            //                     status: {
+            //                         ...chapter.status,
+            //                         ready: chapter.content?.includes(
+            //                             `{${payload.chapterNumber}}`
+            //                         )
+            //                             ? undefined
+            //                             : chapter?.status?.ready,
+            //                     },
+            //                 };
+            //             });
+            //         state.selectedId = undefined;
+            //     }
         },
 
         // setGamebookAuthor: (state, { payload }: PayloadAction<string>) => {
@@ -127,40 +163,6 @@ export const gameBookStateSlice = createSlice({
         //     ];
         //     state.selectedId = newId;
         // },
-
-        // deleteChapterById: (state, { payload }: PayloadAction<IChapter>) => {
-        //     if (payload.id !== CONFIG.FIRST_CHAPTER_ID) {
-        //         state.chapters = state.chapters
-        //             .filter(chapter => chapter.id !== payload.id)
-        //             .map((chapter, index) => {
-        //                 return {
-        //                     ...chapter,
-        //                     chapterNumber: index + 1,
-        //                     content: chapter.content
-        //                         ?.replaceAll(`{${payload.chapterNumber}}`, `{}`)
-        //                         .replace(/(\d+)/g, function (match) {
-        //                             if (
-        //                                 parseInt(match) >
-        //                                     payload.chapterNumber &&
-        //                                 parseInt(match) <= state.chapters.length
-        //                             )
-        //                                 return `${parseInt(match) - 1}`;
-        //                             return match;
-        //                         }),
-        //                     status: {
-        //                         ...chapter.status,
-        //                         ready: chapter.content?.includes(
-        //                             `{${payload.chapterNumber}}`
-        //                         )
-        //                             ? undefined
-        //                             : chapter?.status?.ready,
-        //                     },
-        //                 };
-        //             });
-
-        //         state.selectedId = undefined;
-        //     }
-        // },
     },
     extraReducers: builder => {
         // Add reducers for additional action types here, and handle loading state as needed
@@ -185,11 +187,11 @@ export const {
     setSelectedChapterId,
     updateChapter,
     resetSelectedChapter,
+    deleteChapterById,
     // setGamebookAuthor,
     // setGamebookTitle,
     // setGamebookInitialData,
     // createNewChapter,
-    // deleteChapterById,
 } = gameBookStateSlice.actions;
 
 /**
@@ -222,6 +224,20 @@ export const createNewGamebookDB =
         } catch (error) {
             console.error(error);
         }
+    };
+export const updateMetadataDB =
+    (props: { authorName: string; gamebookTitle: string }) =>
+    (dispatch: AppDispatch, getState: Function) => {
+        db.getObject('metadata', 'details', (e: any) => {
+            const metadata = {
+                ...e,
+                authorName: props.authorName || e.authorName,
+                gamebookTitle: props.gamebookTitle || e.gamebookTitle,
+            };
+            console.log('metadata', metadata);
+            db.editObject('metadata', metadata);
+            dispatch(setGamebookMetadata(metadata));
+        });
     };
 /**
  * Drops database
@@ -338,7 +354,53 @@ export const shuffleChapters =
             dispatch(setChapters(fxChapters));
         });
     };
-
+export const deleteChapterByIdDB =
+    (chapterToDelete: IChapter) =>
+    (dispatch: AppDispatch, getState: Function) => {
+        db.getAllObjects('chapters', (chapters: IChapter[]) => {
+            if (chapterToDelete.id !== CONFIG.FIRST_CHAPTER_ID) {
+                // filtruj chaptery (content)
+                chapters = chapters
+                    .filter(chapter => chapter.id !== chapterToDelete.id)
+                    .map((chapter, index) => {
+                        return {
+                            ...chapter,
+                            chapterNumber: index + 1,
+                            content: chapter.content
+                                ?.replaceAll(
+                                    `{${chapterToDelete.chapterNumber}}`,
+                                    `{}`
+                                )
+                                .replace(/(\d+)/g, function (match) {
+                                    if (
+                                        parseInt(match) >
+                                            chapterToDelete.chapterNumber &&
+                                        parseInt(match) <= chapters.length
+                                    )
+                                        return `${parseInt(match) - 1}`;
+                                    return match;
+                                }),
+                            status: {
+                                ...chapter.status,
+                                ready: chapter.content?.includes(
+                                    `{${chapterToDelete.chapterNumber}}`
+                                )
+                                    ? undefined
+                                    : chapter?.status?.ready,
+                            },
+                        };
+                    });
+                // usuń z DB by ID
+                db.deleteObject('chapters', chapterToDelete.id)
+                // Update chapters content
+                chapters.forEach(ch => {
+                    db.editObject('chapters', ch)
+                })
+                dispatch(setChapters(chapters));
+                dispatch(setSelectedChapterId(undefined));
+            }
+        });
+    };
 //--------------------------
 
 // export const setGamebookInitialDB =

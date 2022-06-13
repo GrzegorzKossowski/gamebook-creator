@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from 'redux/reduxHooks';
 import { IGraph, IGraphEdge, IGraphNode } from 'configuration/interfaces';
 import { v4 as uuidv4 } from 'uuid';
 import Graph from 'react-graph-vis';
-// import { setSelectedChapterId } from 'redux/gameBookSlice';
+import { setSelectedChapterId } from 'redux/gameBookSlice';
 
 interface GraphTreeProps {}
 
@@ -207,8 +207,7 @@ export const GraphTree: React.FC<GraphTreeProps> = () => {
         select: function (event: any) {
             var { nodes, edges } = event;
             if (nodes.length === 1) {
-                // TODO: Zaimplementować wybór rozdziału
-                // dipsatch(setSelectedChapterId(nodes[0]));
+                dipsatch(setSelectedChapterId(nodes[0]));
             }
         },
     };

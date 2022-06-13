@@ -5,6 +5,7 @@ import { IChapter } from 'configuration/interfaces';
 // import { deleteChapterById } from 'redux/gameBookSlice';
 import { useAppSelector, useAppDispatch } from 'redux/reduxHooks';
 import styled from 'styled-components';
+import { deleteChapterByIdDB } from 'redux/gameBookSlice';
 
 interface ModalDeleteChapterProps {
     isVisible: boolean;
@@ -36,8 +37,7 @@ export const ModalDeleteChapter: React.FC<ModalDeleteChapterProps> = ({
         setIsVisible(false);
     };
     const handleDeleteChapter = () => {
-        // TODO: zaimplementować kasowanie rozdziału
-        // if (chapterToDelete) dispatch(deleteChapterById(chapterToDelete));
+        if (chapterToDelete) dispatch(deleteChapterByIdDB(chapterToDelete));
 
         notification['success']({
             message: 'Deleted chapter',
