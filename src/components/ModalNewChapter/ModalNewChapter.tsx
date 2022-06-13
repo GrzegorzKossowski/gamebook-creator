@@ -1,8 +1,8 @@
 import { Button, Form, Input, Modal, notification } from 'antd';
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { useAppDispatch, useAppSelector } from 'redux/reduxHooks';
-import { createNewChapter } from 'redux/gameBookSlice';
+import { useAppDispatch } from 'redux/reduxHooks';
+import { addNewChapterDB } from 'redux/gameBookSlice';
 import { CONFIG } from 'configuration';
 
 interface ModalNewChapterProps {
@@ -25,14 +25,14 @@ export const ModalNewChapter: React.FC<ModalNewChapterProps> = ({
         setIsVisible(false);
     };
     const onFinish = (variables: any) => {
-        dispach(createNewChapter(variables.title));
+        // TODO: ogarnąć doubleclick na formie...
+        dispach(addNewChapterDB(variables.title));
         notification['success']({
             message: 'Chapter created',
             description: `Chapter "${variables.title}" created. You can select it in chapter's tree on the left to edit it's content.`,
             placement: 'bottomRight',
-            duration: 8,
+            duration: 3,
         });
-
         form.resetFields();
         setIsVisible(false);
     };

@@ -11,8 +11,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import EditorMenu from './EditorMenu';
 import { CONFIG } from 'configuration';
-import { addNewChapter, updateChapter } from 'redux/gameBookSlice';
+// import { addNewChapter, addNewChapterDB, updateChapter } from 'redux/gameBookSlice';
 import { IChapter } from 'configuration/interfaces';
+import { createNewChapterDB, updateChapterDB } from 'redux/gameBookSlice';
 
 interface ChapterEditorProps {}
 
@@ -61,8 +62,10 @@ export const ChapterEditor: React.FC<ChapterEditorProps> = () => {
     const onFinish = (values: any) => {
         // save new chapter
         if (!selectedId) {
+            // TODO: zaimplementować dodawanie rozdziału
             dispatch(
-                addNewChapter({
+                createNewChapterDB({
+                    id: '',
                     title: values.title,
                     content: values.content,
                     status: {
@@ -77,9 +80,10 @@ export const ChapterEditor: React.FC<ChapterEditorProps> = () => {
         }
         // save selected chapter
         const chapterToUpdate = chapters.find(ch => ch.id === selectedId);
-        if (chapterToUpdate)
+        if (chapterToUpdate) {
+            // TODO: zaimplementować update rozdziału
             dispatch(
-                updateChapter({
+                updateChapterDB({
                     ...chapterToUpdate,
                     title: values.title,
                     content: values.content,
@@ -92,6 +96,7 @@ export const ChapterEditor: React.FC<ChapterEditorProps> = () => {
                     },
                 })
             );
+        }
     };
 
     return (
@@ -191,7 +196,13 @@ export const ChapterEditor: React.FC<ChapterEditorProps> = () => {
                     </Col>
                 </Row>
                 <Form.Item name='content' className='chapter-editor_textarea'>
-                    <Input.TextArea placeholder='Create a new chapter using the "New Chapter" buttons or just start writing.' />
+                    <Input.TextArea
+                        placeholder={
+                            selectedId
+                                ? "Write chapter's content here. Use {} to create links to other chapters."
+                                : 'Create a new chapter using the "New Chapter" buttons or just start writing.'
+                        }
+                    />
                 </Form.Item>
                 <Form.Item>
                     {selectedId ? (

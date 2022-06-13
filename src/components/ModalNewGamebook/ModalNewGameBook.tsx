@@ -1,8 +1,8 @@
-import { Button, Form, Input, Modal } from 'antd';
+import { Button, Form, Input, Modal, Space, Typography } from 'antd';
 import React from 'react';
 import styled from 'styled-components';
 import { useAppDispatch } from 'redux/reduxHooks';
-import { setGamebookInitialData } from 'redux/gameBookSlice';
+import { createNewGamebookDB } from 'redux/gameBookSlice';
 import { useNavigate } from 'react-router-dom';
 import { CONFIG } from 'configuration';
 
@@ -15,6 +15,8 @@ const ModalNewGameBookStyled = styled.div`
     // put some styles here
 `;
 
+const { Paragraph } = Typography;
+
 export const ModalNewGameBook: React.FC<ModalNewGameBookProps> = ({
     isVisible,
     setIsVisible,
@@ -23,11 +25,11 @@ export const ModalNewGameBook: React.FC<ModalNewGameBookProps> = ({
     const dispach = useAppDispatch();
     let navigate = useNavigate();
 
-    const onFinish = (values: any) => {
+    const onFinish = async (values: any) => {
         const { authorName, gamebookTitle } = values;
         authorName.trim();
         gamebookTitle.trim();
-        dispach(setGamebookInitialData({ authorName, gamebookTitle }));
+        dispach(createNewGamebookDB({ authorName, gamebookTitle }));
         form.resetFields();
         setIsVisible(false);
         navigate(`/editor`);
@@ -97,14 +99,22 @@ export const ModalNewGameBook: React.FC<ModalNewGameBookProps> = ({
                     >
                         <Input placeholder='ex. New Journey of Halflings' />
                     </Form.Item>
+                    <Paragraph type='warning'>
+                        Please note, creating a new project will overwrite an
+                        existing project already stored in your web browser's
+                        DataBase. If you wish, export it to a file first.
+                    </Paragraph>
                     <Form.Item
                         style={{
                             textAlign: 'end',
                         }}
                     >
-                        <Button type='primary' htmlType='submit'>
-                            Submit
-                        </Button>
+                        <Space size='middle'>
+                            <Button onClick={handleCancel}>Cancel</Button>
+                            <Button danger htmlType='submit'>
+                                Submit
+                            </Button>
+                        </Space>
                     </Form.Item>
                 </Form>
             </Modal>

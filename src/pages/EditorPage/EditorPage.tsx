@@ -5,6 +5,8 @@ import ChaptersTree from 'components/ChaptersTree';
 import ChapterEditor from 'components/ChapterEditor';
 import GraphTree from 'components/GraphTree';
 import TopMenu from 'components/MenuTop';
+import { useAppDispatch } from 'redux/reduxHooks';
+import { fetchDbData } from 'redux/gameBookSlice';
 
 interface IEditorPageProps {}
 
@@ -31,6 +33,13 @@ const EditorPageStyled = styled.div`
 `;
 
 export const EditorPage: React.FC<IEditorPageProps> = ({ ...restProps }) => {
+    const dispatch = useAppDispatch();
+    React.useEffect(() => {
+        dispatch(fetchDbData())
+        return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
         <EditorPageStyled>
             <TopMenu />

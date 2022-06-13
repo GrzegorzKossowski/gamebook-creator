@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button, Typography, Row, Col, ColProps, Space } from 'antd';
 import ModalNewGameBook from 'components/ModalNewGamebook';
+import { useAppDispatch } from 'redux/reduxHooks';
+import { fetchDbData } from 'redux/gameBookSlice';
+import { useNavigate } from 'react-router-dom';
 
 interface HomePageProps {}
 const { Text, Title } = Typography;
@@ -16,10 +19,17 @@ const HomePageStyled: React.FC<ColProps> = styled(Col)`
 `;
 
 export const HomePage: React.FC<HomePageProps> = () => {
+    const dispatch = useAppDispatch();
+    let navigate = useNavigate();
     const [isModalNewGameVisible, setIsModalNewGameVisible] =
         React.useState(false);
     const handleShowNewGameBookModal = () => {
         setIsModalNewGameVisible(true);
+    };
+    const handleOpenCurrentProject = () => {
+        //
+        // dispatch(fetchDbData());
+        navigate(`/editor`);
     };
     const year = new Date().getFullYear();
 
@@ -45,8 +55,11 @@ export const HomePage: React.FC<HomePageProps> = () => {
                                 >
                                     New
                                 </Button>
-                                <Button block disabled>
-                                    Open
+                                <Button
+                                    block
+                                    onClick={handleOpenCurrentProject}
+                                >
+                                    Open recent
                                 </Button>
                                 <Button block disabled>
                                     Import (*.gbf)

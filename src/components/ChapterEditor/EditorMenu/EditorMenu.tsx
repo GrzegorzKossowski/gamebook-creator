@@ -11,7 +11,7 @@ import ModalNewChapter from 'components/ModalNewChapter';
 import ModalDeleteChapter from 'components/ModalDeleteChapter';
 import ModalShuffleChapter from 'components/ModalShuffleChapter';
 import { useAppDispatch, useAppSelector } from 'redux/reduxHooks';
-import { deleteChapterById, shuffleChapters } from 'redux/gameBookSlice';
+// import { deleteChapterById, shuffleChapters } from 'redux/gameBookSlice';
 
 interface EditorMenuProps {}
 

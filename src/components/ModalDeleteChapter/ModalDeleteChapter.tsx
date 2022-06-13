@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Divider, Modal, Space, notification, Typography } from 'antd';
 import { CONFIG } from 'configuration';
 import { IChapter } from 'configuration/interfaces';
-import { deleteChapterById } from 'redux/gameBookSlice';
+// import { deleteChapterById } from 'redux/gameBookSlice';
 import { useAppSelector, useAppDispatch } from 'redux/reduxHooks';
 import styled from 'styled-components';
 
@@ -36,7 +36,8 @@ export const ModalDeleteChapter: React.FC<ModalDeleteChapterProps> = ({
         setIsVisible(false);
     };
     const handleDeleteChapter = () => {
-        if (chapterToDelete) dispatch(deleteChapterById(chapterToDelete));
+        // TODO: zaimplementować kasowanie rozdziału
+        // if (chapterToDelete) dispatch(deleteChapterById(chapterToDelete));
 
         notification['success']({
             message: 'Deleted chapter',

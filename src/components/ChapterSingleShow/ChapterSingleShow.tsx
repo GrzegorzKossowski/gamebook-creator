@@ -4,7 +4,7 @@ import { Typography, Button } from 'antd';
 import { useAppDispatch, useAppSelector } from 'redux/reduxHooks';
 import reactStringReplace from 'react-string-replace';
 import { v4 as uuidv4 } from 'uuid';
-import { setSelectedChapterId } from 'redux/gameBookSlice';
+// import { setSelectedChapterId } from 'redux/gameBookSlice';
 import { CONFIG } from 'configuration';
 import ChapterStatus from 'components/ChapterStatus';
 
@@ -38,14 +38,17 @@ export const ChapterSingleShow: React.FC<ChapterSingleShowProps> = () => {
     React.useEffect(() => {
         setLinks(() => chapters.map(chapter => chapter.id));
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        if (!selectedId)
-            dispatch(setSelectedChapterId(CONFIG.FIRST_CHAPTER_ID));
+        if (!selectedId){
+            // TODO: zaimplementować zaznaczanie rozdziału
+            // dispatch(setSelectedChapterId(CONFIG.FIRST_CHAPTER_ID));
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleOnClick = React.useCallback((e: string) => {
         console.log(e);
-        dispatch(setSelectedChapterId(e));
+        // TODO: zaimplementować zaznaczanie rozdziału
+        // dispatch(setSelectedChapterId(e));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

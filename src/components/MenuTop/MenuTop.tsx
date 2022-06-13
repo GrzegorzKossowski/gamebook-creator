@@ -17,6 +17,8 @@ import {
 import ModalEditMetadata from 'components/ModalEditMetadata';
 import ModalNewChapter from 'components/ModalNewChapter';
 import ModalShuffleChapter from 'components/ModalShuffleChapter';
+import { useAppDispatch } from 'redux/reduxHooks';
+import { dropDB } from 'redux/gameBookSlice';
 interface MenuTopProps {}
 
 const MenuTopStyled = styled.div`
@@ -125,13 +127,20 @@ const items: MenuProps['items'] = [
             },
         ],
     },
+    {
+        label: 'DropDB',
+        key: 'dropDB',
+        disabled: false,
+        danger: true
+    },
 ];
 
 export const MenuTop: React.FC<MenuTopProps> = () => {
     let navigate = useNavigate();
+    const dispatch = useAppDispatch()
     const [current, setCurrent] = React.useState('');
     const [isModalEditMetadataVisible, setIsModalEditMetadataVisible] =
-        React.useState(false);
+        React.useState(true);
     const [isModalNewChapterVisible, setIsModalNewChapterVisible] =
         React.useState(false);
     const [isVisibleModalShuffleChapter, setIsVisibleModalShuffleChapter] =
@@ -154,6 +163,9 @@ export const MenuTop: React.FC<MenuTopProps> = () => {
                 break;
             case 'playBook':
                 navigate(`/play`);
+                break;
+            case 'dropDB':
+                dispatch(dropDB())
                 break;
             default:
                 break;

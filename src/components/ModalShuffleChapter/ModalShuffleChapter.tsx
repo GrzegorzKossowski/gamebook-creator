@@ -25,6 +25,7 @@ export const ModalShuffleChapter: React.FC<ModalShuffleChapterProps> = ({
         setIsVisible(false);
     };
     const handleDeleteChapter = () => {
+        // TODO: zaimplementować szuflowanie rozdziałów
         dispatch(shuffleChapters());
         notification['success']({
             message: 'Shuffled chapters',

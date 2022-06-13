@@ -1,17 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-    Button,
-    Input,
-    Typography,
-} from 'antd';
+import { Button, Input, Typography } from 'antd';
 import { useAppDispatch, useAppSelector } from 'redux/reduxHooks';
 import { setSelectedChapterId } from 'redux/gameBookSlice';
 import ChapterStatus from '../ChapterStatus';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faFileCirclePlus,
-} from '@fortawesome/free-solid-svg-icons';
+import { faFileCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import ModalNewChapter from 'components/ModalNewChapter';
 
 interface IChaptersTreeProps {}
@@ -59,6 +53,7 @@ export const ChaptersTree: React.FC<IChaptersTreeProps> = () => {
 
     const handleClick = (id: string) => {
         setSelectedIdState(id);
+        // TODO: zaimplementować wybieranie rozdziału
         dispach(setSelectedChapterId(id));
     };
 
@@ -106,7 +101,9 @@ export const ChaptersTree: React.FC<IChaptersTreeProps> = () => {
                                     onClick={() => handleClick(chapter.id)}
                                 >
                                     <Text>
-                                        {`${chapter.chapterNumber}) ix: ${index} - ${
+                                        {`${
+                                            chapter.chapterNumber
+                                        }) ix: ${index} - ${
                                             chapter.title.length > 25
                                                 ? chapter.title.slice(0, 25) +
                                                   '...'

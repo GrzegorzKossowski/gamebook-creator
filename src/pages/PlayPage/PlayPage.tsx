@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAnglesUp } from '@fortawesome/free-solid-svg-icons';
 import ChapterSingleShow from 'components/ChapterSingleShow';
-import { setSelectedChapterId } from 'redux/gameBookSlice';
+// import { setSelectedChapterId } from 'redux/gameBookSlice';
 import { CONFIG } from 'configuration';
 
 interface PlayPageProps {}
@@ -45,7 +45,8 @@ export const PlayPage: React.FC<PlayPageProps> = () => {
     }, []);
 
     const handleSetFirstChapter = () => {
-        dispatch(setSelectedChapterId(CONFIG.FIRST_CHAPTER_ID));
+        // TODO: zaimplementować ustawienie oznaczonego paragrafu
+        // dispatch(setSelectedChapterId(CONFIG.FIRST_CHAPTER_ID));
     };
 
     return (

@@ -10,10 +10,16 @@ export interface IChapter {
     id: string;
     chapterNumber: number;
     title: string;
+    oldNumber?: number;
     content?: string;
     status?: IStatus;
 }
 
+export interface IGameBookMetadata {
+    authorName: string;
+    gamebookTitle: string;
+    selectedId: string | undefined;
+}
 export interface IGameBookState {
     authorName: string;
     gamebookTitle: string;
@@ -28,8 +34,8 @@ export interface IGraphNode {
     color?: string;
     opacity?: number;
     font?: {
-        color?: string
-    }
+        color?: string;
+    };
 }
 export interface IGraphEdge {
     from: string | number;
