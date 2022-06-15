@@ -6,7 +6,6 @@ import {
     Modal,
     notification,
     Radio,
-    RadioChangeEvent,
     Space,
 } from 'antd';
 import { CONFIG } from 'configuration';
@@ -85,9 +84,6 @@ export const ModalExportToFile: React.FC<ModalExportToFileProps> = ({
         setIsVisible(false);
     };
 
-    const onChange = (e: RadioChangeEvent) => {
-        setRadioValue(e.target.value);
-    };
     return (
         <ModalExportToFileStyled>
             <Modal
