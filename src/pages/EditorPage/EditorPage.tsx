@@ -35,9 +35,9 @@ const EditorPageStyled = styled.div`
 export const EditorPage: React.FC<IEditorPageProps> = ({ ...restProps }) => {
     const dispatch = useAppDispatch();
     React.useEffect(() => {
-        dispatch(fetchDbData())
+        dispatch(fetchDbData());
         return () => {};
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

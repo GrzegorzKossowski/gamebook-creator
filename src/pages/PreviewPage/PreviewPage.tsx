@@ -35,9 +35,8 @@ const PreviewPageStyled = styled.div`
 const { Title, Text, Paragraph } = Typography;
 
 export const PreviewPage: React.FC<PreviewPageProps> = () => {
-    const { authorName, gamebookTitle, chapters } = useAppSelector(
-        state => state.gamebook
-    );
+    const { authorName, gamebookTitle, chapters, introduction } =
+        useAppSelector(state => state.gamebook);
     const [links, setLinks] = React.useState<string[]>([]);
 
     React.useEffect(() => {
@@ -56,6 +55,16 @@ export const PreviewPage: React.FC<PreviewPageProps> = () => {
                     <Title level={4} className='preview__subtitle'>
                         by {authorName}
                     </Title>
+                    {introduction && (
+                        <>
+                            <Title level={4} className='preview__subtitle'>
+                                Introduction
+                            </Title>
+                            <Paragraph className='preview__paragraph'>
+                                {introduction}
+                            </Paragraph>
+                        </>
+                    )}
                     {chapters &&
                         chapters.map(chapter => {
                             return (

@@ -4,11 +4,9 @@ import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from 'redux/reduxHooks';
 import { CONFIG } from 'configuration';
 import { updateMetadataDB } from 'redux/gameBookSlice';
+import { ModalProps } from 'configuration/interfaces';
 
-interface ModalEditMetadataProps {
-    isVisible: boolean;
-    setIsVisible: Function;
-}
+interface ModalEditMetadataProps extends ModalProps {}
 
 const ModalEditMetadataStyled = styled.div`
     // put some styles here

@@ -9,15 +9,13 @@ import {
     Space,
 } from 'antd';
 import { CONFIG } from 'configuration';
+import { ModalProps } from 'configuration/interfaces';
 import React from 'react';
 import { useAppSelector } from 'redux/reduxHooks';
 import styled from 'styled-components';
 import { plainTextFormatter } from 'utils/plainTextFormatter';
 
-interface ModalExportToFileProps {
-    isVisible: boolean;
-    setIsVisible: Function;
-}
+interface ModalExportToFileProps extends ModalProps {}
 
 const ModalExportToFileStyled = styled.div`
     // put some styles here
@@ -27,7 +25,7 @@ export const ModalExportToFile: React.FC<ModalExportToFileProps> = ({
     isVisible,
     setIsVisible,
 }) => {
-    const { gamebookTitle, authorName, chapters } = useAppSelector(
+    const { gamebookTitle, authorName, chapters, introduction } = useAppSelector(
         state => state.gamebook
     );
     const [form] = Form.useForm();
@@ -40,6 +38,7 @@ export const ModalExportToFile: React.FC<ModalExportToFileProps> = ({
                     plainTextFormatter({
                         gamebookTitle,
                         authorName,
+                        introduction,
                         chapters,
                     }),
                 ],
@@ -51,6 +50,7 @@ export const ModalExportToFile: React.FC<ModalExportToFileProps> = ({
                     JSON.stringify({
                         gamebookTitle,
                         authorName,
+                        introduction,
                         chapters,
                     }),
                 ],

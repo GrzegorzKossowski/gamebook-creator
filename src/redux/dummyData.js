@@ -134,6 +134,8 @@ const arrayChapters = (amount) => Array.from({ length: amount }, (_, i) => {
 
 export const chapters = [
   firstChapter,
-  ...someChapters,
+  // ...someChapters,
   // ...arrayChapters(3),
 ]
+
+export const introduction = 'Introduction. Here you can describe to the reader what gamebooks are, how they are played. In addition, you can include information on game mechanics if you intend to introduce one. This text will appear in the exports before the first paragraph.'

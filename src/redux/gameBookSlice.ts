@@ -4,7 +4,7 @@ import type { RootState, AppDispatch } from './store';
 import { IGameBookState, IChapter, IStatus } from 'configuration/interfaces';
 import { v4 as uuidv4 } from 'uuid';
 import { CONFIG } from 'configuration';
-import { chapters } from './dummyData';
+import { chapters, introduction } from './dummyData';
 import { DBManager } from 'IndexedDB/DBManager';
 
 // create local database with tables/collections
@@ -15,10 +15,10 @@ const db = new DBManager('gamebook_db', ['metadata', 'chapters']);
  * Fetches all data from DB and returns it to extraReducer
  */
 export const fetchDbData = createAsyncThunk('data/fetchData', async () => {
-    const mtd = new Promise((resolve, reject) => {
+    const mtd = await new Promise((resolve, reject) => {
         db.getObject('metadata', 'details', (metadata: any) => {
             resolve(metadata);
-            reject(undefined);
+            reject('reject');
         });
     })
         .then(data => {
@@ -27,7 +27,7 @@ export const fetchDbData = createAsyncThunk('data/fetchData', async () => {
         .catch(error => {
             console.log(error);
         });
-    const chpt = new Promise((resolve, reject) => {
+    const chpt = await new Promise((resolve, reject) => {
         db.getAllObjects('chapters', (chapters: IChapter[]) => {
             resolve(chapters.sort((a, b) => a.chapterNumber - b.chapterNumber));
             reject(undefined);
@@ -50,8 +50,10 @@ export const fetchDbData = createAsyncThunk('data/fetchData', async () => {
 const initialState: IGameBookState = {
     authorName: '',
     gamebookTitle: '',
+    introduction: introduction,
     selectedId: undefined,
     chapters: chapters,
+    isDbMetadata: false,
 };
 
 export const gameBookStateSlice = createSlice({
@@ -64,6 +66,7 @@ export const gameBookStateSlice = createSlice({
         ) => {
             state.gamebookTitle = payload.gamebookTitle;
             state.authorName = payload.authorName;
+            state.introduction = payload.introduction;
             state.selectedId = payload.selectedId;
         },
         setChapters: (state, { payload }: PayloadAction<IChapter[]>) => {
@@ -100,21 +103,27 @@ export const gameBookStateSlice = createSlice({
         resetSelectedChapter: state => {
             state.selectedId = undefined;
         },
+        setIsDbMetadata: (state, { payload }: PayloadAction<boolean>) => {
+            state.isDbMetadata = payload;
+        },
     },
     extraReducers: builder => {
         // Add reducers for additional action types here, and handle loading state as needed
-        builder.addCase(
-            fetchDbData.fulfilled,
-            (state, { payload }: PayloadAction<IGameBookState>) => {
-                return {
-                    authorName: payload.authorName,
-                    gamebookTitle: payload.gamebookTitle,
-                    // introduction: payload.introduction,
-                    selectedId: payload.selectedId,
-                    chapters: payload.chapters,
-                };
-            }
-        );
+        builder
+            .addCase(
+                fetchDbData.fulfilled,
+                (state, { payload }: PayloadAction<IGameBookState>) => {
+                    return {
+                        ...initialState,
+                        authorName: payload.authorName,
+                        gamebookTitle: payload.gamebookTitle,
+                        introduction: payload.introduction,
+                        selectedId: payload.selectedId,
+                        chapters: payload.chapters,
+                    };
+                }
+            )
+            .addDefaultCase(state => {});
     },
 });
 
@@ -125,6 +134,7 @@ export const {
     setSelectedChapterId,
     updateChapter,
     resetSelectedChapter,
+    setIsDbMetadata,
 } = gameBookStateSlice.actions;
 
 /**
@@ -133,7 +143,11 @@ export const {
  * @returns void
  */
 export const createNewGamebookDB =
-    (props: { authorName: string; gamebookTitle: string }) =>
+    (props: {
+        authorName: string;
+        gamebookTitle: string;
+        introduction: string;
+    }) =>
     (dispatch: AppDispatch, getState: Function) => {
         try {
             // clear if objects
@@ -158,16 +172,21 @@ export const createNewGamebookDB =
             console.error(error);
         }
     };
+
 export const updateMetadataDB =
-    (props: { authorName: string; gamebookTitle: string }) =>
+    (props: {
+        authorName?: string;
+        gamebookTitle?: string;
+        introduction?: string;
+    }) =>
     (dispatch: AppDispatch, getState: Function) => {
         db.getObject('metadata', 'details', (e: any) => {
             const metadata = {
                 ...e,
                 authorName: props.authorName || e.authorName,
                 gamebookTitle: props.gamebookTitle || e.gamebookTitle,
+                introduction: props.introduction || e.introduction,
             };
-            console.log('metadata', metadata);
             db.editObject('metadata', metadata);
             dispatch(setGamebookMetadata(metadata));
         });
@@ -287,6 +306,7 @@ export const shuffleChapters =
             dispatch(setChapters(fxChapters));
         });
     };
+
 export const deleteChapterByIdDB =
     (chapterToDelete: IChapter) =>
     (dispatch: AppDispatch, getState: Function) => {
@@ -334,5 +354,15 @@ export const deleteChapterByIdDB =
             }
         });
     };
+
+export const checkDB = () => (dispatch: AppDispatch, getState: Function) => {
+    db.getObject('metadata', 'details', (e: any) => {
+        if (e) {
+            dispatch(setIsDbMetadata(true));
+        } else {
+            dispatch(setIsDbMetadata(false));
+        }
+    });
+};
 
 export default gameBookStateSlice.reducer;

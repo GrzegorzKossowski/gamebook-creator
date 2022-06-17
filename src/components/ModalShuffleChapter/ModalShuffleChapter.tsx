@@ -1,13 +1,11 @@
 import { Button, Modal, Space, notification, Typography } from 'antd';
+import { ModalProps } from 'configuration/interfaces';
 import React from 'react';
 import { shuffleChapters } from 'redux/gameBookSlice';
 import { useAppDispatch } from 'redux/reduxHooks';
 import styled from 'styled-components';
 
-interface ModalShuffleChapterProps {
-    isVisible: boolean;
-    setIsVisible: Function;
-}
+interface ModalShuffleChapterProps extends ModalProps {}
 
 const ModalShuffleChapterStyled = styled.div`
     // put some styles here

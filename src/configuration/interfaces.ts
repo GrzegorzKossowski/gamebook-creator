@@ -1,3 +1,8 @@
+export interface ModalProps {
+    isVisible: boolean;
+    setIsVisible: Function;
+}
+
 export interface IStatus {
     dead?: boolean | undefined;
     fixed?: boolean | undefined;
@@ -18,13 +23,16 @@ export interface IChapter {
 export interface IGameBookMetadata {
     authorName: string;
     gamebookTitle: string;
+    introduction: string;
     selectedId: string | undefined;
 }
 export interface IGameBookState {
     authorName: string;
     gamebookTitle: string;
+    introduction: string;
     selectedId: string | undefined;
     chapters: IChapter[];
+    isDbMetadata?: boolean;
 }
 
 export interface IGraphNode {

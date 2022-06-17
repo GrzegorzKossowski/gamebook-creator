@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button, Typography, Row, Col, ColProps, Space } from 'antd';
 import ModalNewGameBook from 'components/ModalNewGamebook';
-import { useAppDispatch } from 'redux/reduxHooks';
-import { fetchDbData } from 'redux/gameBookSlice';
+import { useAppDispatch, useAppSelector } from 'redux/reduxHooks';
+import { checkDB, fetchDbData } from 'redux/gameBookSlice';
 import { useNavigate } from 'react-router-dom';
 
 interface HomePageProps {}
@@ -19,16 +19,21 @@ const HomePageStyled: React.FC<ColProps> = styled(Col)`
 `;
 
 export const HomePage: React.FC<HomePageProps> = () => {
-    const dispatch = useAppDispatch();
     let navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const { isDbMetadata } = useAppSelector(state => state.gamebook);
     const [isModalNewGameVisible, setIsModalNewGameVisible] =
         React.useState(false);
+
+    React.useEffect(() => {
+        dispatch(checkDB());
+        return () => {};
+    }, [dispatch]);
+
     const handleShowNewGameBookModal = () => {
         setIsModalNewGameVisible(true);
     };
     const handleOpenCurrentProject = () => {
-        //
-        // dispatch(fetchDbData());
         navigate(`/editor`);
     };
     const year = new Date().getFullYear();
@@ -58,6 +63,7 @@ export const HomePage: React.FC<HomePageProps> = () => {
                                 <Button
                                     block
                                     onClick={handleOpenCurrentProject}
+                                    disabled={!isDbMetadata}
                                 >
                                     Open recent
                                 </Button>

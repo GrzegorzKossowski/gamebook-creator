@@ -11,7 +11,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import EditorMenu from './EditorMenu';
 import { CONFIG } from 'configuration';
-// import { addNewChapter, addNewChapterDB, updateChapter } from 'redux/gameBookSlice';
 import { IChapter } from 'configuration/interfaces';
 import { createNewChapterDB, updateChapterDB } from 'redux/gameBookSlice';
 
@@ -36,6 +35,7 @@ export const ChapterEditor: React.FC<ChapterEditorProps> = () => {
     const dispatch = useAppDispatch();
     const { chapters, selectedId } = useAppSelector(state => state.gamebook);
     const [form] = Form.useForm();
+    const ref = React.useRef<any>(null);
 
     React.useEffect(() => {
         let chapter;
@@ -58,6 +58,34 @@ export const ChapterEditor: React.FC<ChapterEditorProps> = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedId]);
+
+    const funcionKeyPressed = React.useCallback(
+        ({ code }: any) => {
+            if (code === 'F4') {
+                if (ref.current) {
+                    const curretIndex = ref.current.resizableTextArea.textArea
+                        .selectionStart as number;
+                    const textToSplit = form.getFieldValue('content') as string;
+                    form.setFieldsValue({
+                        content: [
+                            textToSplit.slice(0, curretIndex),
+                            `{${chapters.length + 1}}`,
+                            textToSplit.slice(curretIndex),
+                        ].join(''),
+                    });
+                }
+            }
+        },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [chapters.length]
+    );
+
+    React.useEffect(() => {
+        document.addEventListener('keydown', funcionKeyPressed);
+        return () => {
+            document.removeEventListener('keydown', funcionKeyPressed);
+        };
+    }, [funcionKeyPressed]);
 
     const onFinish = (values: any) => {
         // save new chapter
@@ -104,7 +132,6 @@ export const ChapterEditor: React.FC<ChapterEditorProps> = () => {
             <Form
                 form={form}
                 autoComplete='off'
-                // layout='vertical'
                 size='large'
                 onFinish={onFinish}
             >
@@ -195,6 +222,7 @@ export const ChapterEditor: React.FC<ChapterEditorProps> = () => {
                 </Row>
                 <Form.Item name='content'>
                     <Input.TextArea
+                        ref={ref}
                         placeholder={
                             selectedId
                                 ? "Write chapter's content here. Use {} to create links to other chapters."

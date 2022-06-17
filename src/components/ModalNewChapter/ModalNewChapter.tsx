@@ -4,11 +4,9 @@ import styled from 'styled-components';
 import { useAppDispatch } from 'redux/reduxHooks';
 import { addNewChapterDB } from 'redux/gameBookSlice';
 import { CONFIG } from 'configuration';
+import { ModalProps } from 'configuration/interfaces';
 
-interface ModalNewChapterProps {
-    isVisible: boolean;
-    setIsVisible: Function;
-}
+interface ModalNewChapterProps extends ModalProps {}
 
 const ModalNewChapterStyled = styled.div`
     // put some styles here

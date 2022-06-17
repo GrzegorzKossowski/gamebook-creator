@@ -1,15 +1,13 @@
 import { Button, Form, Input, Modal, Space, Typography } from 'antd';
 import React from 'react';
 import styled from 'styled-components';
-import { useAppDispatch } from 'redux/reduxHooks';
+import { useAppDispatch, useAppSelector } from 'redux/reduxHooks';
 import { createNewGamebookDB } from 'redux/gameBookSlice';
 import { useNavigate } from 'react-router-dom';
 import { CONFIG } from 'configuration';
+import { ModalProps } from 'configuration/interfaces';
 
-interface ModalNewGameBookProps {
-    isVisible: boolean;
-    setIsVisible: Function;
-}
+interface ModalNewGameBookProps extends ModalProps {}
 
 const ModalNewGameBookStyled = styled.div`
     // put some styles here
@@ -23,13 +21,18 @@ export const ModalNewGameBook: React.FC<ModalNewGameBookProps> = ({
 }) => {
     const [form] = Form.useForm();
     const dispach = useAppDispatch();
+    const { introduction } = useAppSelector(state => state.gamebook);
     let navigate = useNavigate();
 
     const onFinish = async (values: any) => {
         const { authorName, gamebookTitle } = values;
-        authorName.trim();
-        gamebookTitle.trim();
-        dispach(createNewGamebookDB({ authorName, gamebookTitle }));
+        dispach(
+            createNewGamebookDB({
+                authorName: authorName.trim(),
+                gamebookTitle: gamebookTitle.trim(),
+                introduction,
+            })
+        );
         form.resetFields();
         setIsVisible(false);
         navigate(`/editor`);
@@ -55,8 +58,8 @@ export const ModalNewGameBook: React.FC<ModalNewGameBookProps> = ({
                     requiredMark='optional'
                     onFinish={onFinish}
                     initialValues={{
-                        authorName: 'John Doe',
-                        gamebookTitle: 'New Journey of Halflings',
+                        authorName: '',
+                        gamebookTitle: '',
                     }}
                 >
                     <Form.Item

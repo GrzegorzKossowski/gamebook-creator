@@ -20,6 +20,7 @@ import ModalEditMetadata from 'components/ModalEditMetadata';
 import ModalShuffleChapter from 'components/ModalShuffleChapter';
 import ModalNewChapter from 'components/ModalNewChapter';
 import ModalExportToFile from 'components/ModalExportToFile';
+import ModalIntroduction from 'components/ModalIntroduction';
 
 interface MenuTopProps {}
 
@@ -71,7 +72,7 @@ const items: MenuProps['items'] = [
             {
                 label: 'Introduction',
                 key: 'introduction',
-                disabled: true,
+                disabled: false,
                 icon: <FontAwesomeIcon icon={faFileSignature} />,
             },
             {
@@ -134,6 +135,8 @@ export const MenuTop: React.FC<MenuTopProps> = () => {
         React.useState(false);
     const [isVisibleModalShuffleChapter, setIsVisibleModalShuffleChapter] =
         React.useState(false);
+    const [isVisibleModalIntroduction, setIsVisibleModalIntroduction] =
+        React.useState(false);
     const [isVisibleModalExportToFile, setIsVisibleModalExportToFile] =
         React.useState(false);
 
@@ -148,6 +151,9 @@ export const MenuTop: React.FC<MenuTopProps> = () => {
                 break;
             case 'schuffleChapters':
                 setIsVisibleModalShuffleChapter(true);
+                break;
+            case 'introduction':
+                setIsVisibleModalIntroduction(true);
                 break;
             case 'exportBook':
                 setIsVisibleModalExportToFile(true);
@@ -191,6 +197,10 @@ export const MenuTop: React.FC<MenuTopProps> = () => {
             <ModalExportToFile
                 isVisible={isVisibleModalExportToFile}
                 setIsVisible={setIsVisibleModalExportToFile}
+            />
+            <ModalIntroduction
+                isVisible={isVisibleModalIntroduction}
+                setIsVisible={setIsVisibleModalIntroduction}
             />
         </>
     );
