@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import { Button, Typography, Row, Col, ColProps, Space } from 'antd';
 import ModalNewGameBook from 'components/ModalNewGamebook';
 import { useAppDispatch, useAppSelector } from 'redux/reduxHooks';
-import { checkDB, fetchDbData } from 'redux/gameBookSlice';
+import { checkDB, dropDB } from 'redux/gameBookSlice';
 import { useNavigate } from 'react-router-dom';
+import ModalOpenRecent from 'components/ModalOpenRecent/ModalOpenRecent';
 
 interface HomePageProps {}
 const { Text, Title } = Typography;
@@ -24,6 +25,8 @@ export const HomePage: React.FC<HomePageProps> = () => {
     const { isDbMetadata } = useAppSelector(state => state.gamebook);
     const [isModalNewGameVisible, setIsModalNewGameVisible] =
         React.useState(false);
+    const [isModalOpenRecentVisible, setIsModalOpenRecentVisible] =
+        React.useState(true);
 
     React.useEffect(() => {
         dispatch(checkDB());
@@ -73,6 +76,14 @@ export const HomePage: React.FC<HomePageProps> = () => {
                                 <Button block disabled>
                                     Docs
                                 </Button>
+                                <Button
+                                    block
+                                    danger
+                                    disabled
+                                    onClick={() => dispatch(dropDB())}
+                                >
+                                    Delete DB
+                                </Button>
                             </Space>
                         </Col>
                     </Row>
@@ -83,6 +94,10 @@ export const HomePage: React.FC<HomePageProps> = () => {
                 isVisible={isModalNewGameVisible}
                 setIsVisible={setIsModalNewGameVisible}
             />
+            {/* <ModalOpenRecent
+                isVisible={isModalOpenRecentVisible}
+                setIsVisible={setIsModalOpenRecentVisible}
+            /> */}
         </>
     );
 };

@@ -1,4 +1,4 @@
-import { IGameBookMetadata } from './../configuration/interfaces';
+import { IGameBookMetadata } from 'configuration/interfaces';
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import type { RootState, AppDispatch } from './store';
 import { IGameBookState, IChapter, IStatus } from 'configuration/interfaces';
@@ -356,13 +356,17 @@ export const deleteChapterByIdDB =
     };
 
 export const checkDB = () => (dispatch: AppDispatch, getState: Function) => {
-    db.getObject('metadata', 'details', (e: any) => {
-        if (e) {
-            dispatch(setIsDbMetadata(true));
-        } else {
-            dispatch(setIsDbMetadata(false));
-        }
-    });
+    // as far as I know, there is no direct possibility to check if DB exist without creating it.
+    // so, if there's no DB, we need to wait until it is created in case it doesn't exist yet
+    setTimeout(() => {
+        db.getObject('metadata', 'details', (e: any) => {
+            if (e) {
+                dispatch(setIsDbMetadata(true));
+            } else {
+                dispatch(setIsDbMetadata(false));
+            }
+        });
+    }, 500);
 };
 
 export default gameBookStateSlice.reducer;
