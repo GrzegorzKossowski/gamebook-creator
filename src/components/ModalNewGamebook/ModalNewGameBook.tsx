@@ -58,8 +58,8 @@ export const ModalNewGameBook: React.FC<ModalNewGameBookProps> = ({
                     requiredMark='optional'
                     onFinish={onFinish}
                     initialValues={{
-                        authorName: '',
-                        gamebookTitle: '',
+                        authorName: 'John Doe',
+                        gamebookTitle: 'New Journey of Halflings',
                     }}
                 >
                     <Form.Item

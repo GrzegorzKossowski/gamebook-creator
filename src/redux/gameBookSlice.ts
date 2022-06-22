@@ -209,6 +209,7 @@ export const addNewChapterDB =
             const newChapter = {
                 id: uuidv4(),
                 chapterNumber: getState().gamebook.chapters.length + 1,
+                oldNumber: getState().gamebook.chapters.length + 1,
                 title,
                 content: '',
                 status: {},
@@ -226,6 +227,7 @@ export const createNewChapterDB =
             const newChapter = {
                 id: uuidv4(),
                 chapterNumber: getState().gamebook.chapters.length + 1,
+                oldNumber: getState().gamebook.chapters.length + 1,
                 title: chapter.title,
                 content: chapter.content,
                 status: {
@@ -241,7 +243,6 @@ export const createNewChapterDB =
 
 export const updateChapterDB =
     (chapter: IChapter) => (dispatch: AppDispatch, getState: Function) => {
-        console.log(chapter);
         try {
             db.editObject('chapters', chapter);
             dispatch(updateChapter(chapter));
@@ -253,23 +254,26 @@ export const updateChapterDB =
 export const shuffleChapters =
     () => (dispatch: AppDispatch, getState: Function) => {
         // reset selected in DB
-        db.getAllObjects('chapters', (e: IChapter[]) => {
-            const chapters = e as IChapter[];
-            // divide in two
+        db.getAllObjects('chapters', async (e: IChapter[]) => {
+            let chapters = e as IChapter[];
+            chapters = chapters.map(sh => {
+                return {
+                    ...sh,
+                    oldNumber: sh.chapterNumber,
+                };
+            });
+            // divide in two tables
             let toShuffle = chapters
-                .map(ch => {
-                    return {
-                        ...ch,
-                        oldNumber: ch.chapterNumber,
-                    };
-                })
+                // get only not fixed
                 .filter(ch => !ch.status?.fixed)
                 .map(value => ({ value, sort: Math.random() }))
                 .sort((a, b) => a.sort - b.sort)
                 .map(({ value }) => value);
-            let fxChapters: any = chapters.map(ch =>
-                ch.status?.fixed ? ch : undefined
-            );
+            // fixed chapters
+            let fxChapters: any = chapters.map(ch => {
+                return ch.status?.fixed ? ch : undefined;
+            });
+
             // rejoin arrays
             for (let i = 0; i < chapters.length; i++) {
                 if (fxChapters[i] === undefined) {
@@ -281,10 +285,11 @@ export const shuffleChapters =
                     };
                 }
             }
-            console.log('fxChapters', fxChapters);
-            const oldNumbers = fxChapters.map(
+
+            const oldNumbers = await fxChapters.map(
                 (chapter: IChapter) => chapter.oldNumber
             );
+
             fxChapters = fxChapters.map((chapter: IChapter) => {
                 return {
                     ...chapter,
@@ -292,14 +297,15 @@ export const shuffleChapters =
                         /\{(\d+)\}/g,
                         function (match: string) {
                             const number = parseInt(match.slice(1, -1));
-                            if (number > fxChapters.length)
+                            if (number > fxChapters.length) {
                                 return `{${number}}`;
+                            }
                             return `{${oldNumbers.indexOf(number) + 1}}`;
                         }
                     ),
                 };
             });
-            fxChapters.forEach((chapter: IChapter) => {
+            await fxChapters.forEach((chapter: IChapter) => {
                 db.editObject('chapters', chapter);
             });
             dispatch(resetSelectedChapter());

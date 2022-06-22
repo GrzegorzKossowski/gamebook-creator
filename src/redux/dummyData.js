@@ -26,11 +26,13 @@ const someChapters = [{
   oldNumber: 2,
   title: 'Second chapter - co to hobbit',
   content:
-    'Matką naszego hobbita… ale co to jest hobbit? Zdaje mi się, że wymaga to wyjaśnienia. W dzisiejszych czasach bowiem hobbitów bardzo rzadko można spotkać: nie ma ich wiele, a poza tym unikają Dużych Ludzi – jak nazywają nas. Hobbici są – czy może byli – małymi ludźmi, mniejszymi od krasnoludów – różnią się też od nich tym, że nie noszą brody – lecz znacznie większymi od liliputów.\n' +
-    `\nNext chapters THIRD {3} FIFTH {5},\nlink to random distant {${Math.floor(Math.random() * (100 - 2)) + 100
-    }},\nlink to empty {}`,
+    'Second chapter - do trzeci {3}, do czwarty {4},\n logn {99}, empty {}',
+  // content:
+  //   'Matką naszego hobbita… ale co to jest hobbit? Zdaje mi się, że wymaga to wyjaśnienia. W dzisiejszych czasach bowiem hobbitów bardzo rzadko można spotkać: nie ma ich wiele, a poza tym unikają Dużych Ludzi – jak nazywają nas. Hobbici są – czy może byli – małymi ludźmi, mniejszymi od krasnoludów – różnią się też od nich tym, że nie noszą brody – lecz znacznie większymi od liliputów.\n' +
+  //   `\nNext chapters THIRD {3} FIFTH {5},\nlink to random distant {${Math.floor(Math.random() * (100 - 2)) + 100
+  //   }},\nlink to empty {}`,
   status: {
-    fixed: Math.random() < 0.2,
+    fixed: true,// Math.random() < 0.2,
     dead: Math.random() < 0.92 && Math.random() > 0.9,
     win: Math.random() > 0.92,
   },
@@ -41,9 +43,7 @@ const someChapters = [{
   oldNumber: 3,
   title: 'Third chapter - pewnego ranka',
   content:
-    'Dziwnym trafem pewnego ranka, dawno, dawno temu, w czas dla świata spokojny, gdy mniej na nim było zgiełku, a więcej zieleni, gdy hobbici żyli liczni i szczęśliwi, a Bilbo Baggins zjadłszy śniadanie stał pod swymi drzwiami i ćmił olbrzymią, długą, drewnianą fajkę, sięgającą mu prawie do kosmatych palców u nóg.' +
-    `\nNext chapters FOURTH {4} FIFTH {5},\nlink to random distant {${Math.floor(Math.random() * (100 - 2)) + 100
-    }},\nlink to empty {}`,
+    'Third chapter - do drugi {2}\ndo czwarty {4}\n logn {99}, empty {}',
   status: {
     fixed: Math.random() < 0.2,
     dead: Math.random() < 0.92 && Math.random() > 0.9,
@@ -56,11 +56,9 @@ const someChapters = [{
   oldNumber: 4,
   title: 'Fourth chapter - wejście smoka',
   content:
-    'Nic więc nie podejrzewał Bilbo, gdy owego ranka zobaczył małego staruszka w wysokim, spiczastym, niebieskim kapeluszu, w długim szarym płaszczu przepasanym srebrną szarfą, z długą siwą brodą, sięgającą poniżej pasa, obutego w ogromne czarne buty.' +
-    `\nNext chapters FIFTH {5} SIXTH {6},\nlink to random distant {${Math.floor(Math.random() * (100 - 2)) + 100
-    }},\nlink to empty {}`,
+    'Fourth chapter - to pierszy {1} to drugi {2} to trzeci {3} to czwarty {4}\n logn {99}, empty {}',
   status: {
-    fixed: Math.random() < 0.2,
+    fixed: false,//Math.random() < 0.2,
     dead: Math.random() < 0.92 && Math.random() > 0.9,
     win: Math.random() > 0.92,
   },
@@ -71,9 +69,7 @@ const someChapters = [{
   oldNumber: 5,
   title: 'Fifth chapter - naród prosty',
   content:
-    '– My tu jesteśmy naród prosty i spokojny, nie potrzeba nam przygód. Przygody! To znaczy: nieprzyjemności, zburzony spokój, brak wygód. Przez takie rzeczy można się spóźnić na obiad.' +
-    `\nNext chapters SIXTH {6} SEVENTH {7},\nlink to random distant {${Math.floor(Math.random() * (100 - 2)) + 100
-    }},\nlink to empty {}`,
+    'Fifth chapter - pierwszy {1}, ostatni {6}, daleki {99}, pusty {}',
   status: {
     fixed: Math.random() < 0.2,
     dead: Math.random() < 0.92 && Math.random() > 0.9,
@@ -86,30 +82,29 @@ const someChapters = [{
   oldNumber: 6,
   title: 'Sixth chapter - Gandalf, Gandalf',
   content:
-    '– Gandalf! Gandalf! Wielkie nieba! Czyżby ten sam wędrowny czarodziej, który Staremu Tukowi podarował magiczne brylantowe spinki, co to same się zapinały, a odpinały tylko na rozkaz?' +
-    `\nNext chapters EIGHTH {8} NINETH {9},\nlink to random distant {${Math.floor(Math.random() * (100 - 2)) + 100
-    }},\nlink to empty {}`,
+    'Sixth chapter - pierwszy {1}, ostatni {6}, daleki {99}, pusty {}',
   status: {
     fixed: Math.random() < 0.2,
     dead: Math.random() < 0.92 && Math.random() > 0.9,
     win: Math.random() > 0.92,
   },
 },
-{
-  id: uuidv4(),
-  chapterNumber: 7,
-  oldNumber: 7,
-  title: 'Seventh chapter - kłopoty to moja specjalność',
-  content:
-    'Nazajutrz prawie zapomniał o Gandalfie. Nigdy nie pamiętał zbyt dokładnie różnych rzeczy, jeśli ich nie zapisał w swoim kalendarzyku terminowym, na przykład tak: środa, herbata z Gandalfem. Poprzedniego dnia zanadto był podniecony, by o czymś takim pomyśleć.' +
-    `\nNext chapters TEHTH {10} ELEVENTH {11},\nlink to random distant {${Math.floor(Math.random() * (100 - 2)) + 100
-    }},\nlink to empty {}`,
-  status: {
-    fixed: Math.random() < 0.1,
-    dead: Math.random() < 0.92 && Math.random() > 0.9,
-    win: Math.random() > 0.92,
-  },
-},]
+  // {
+  //   id: uuidv4(),
+  //   chapterNumber: 7,
+  //   oldNumber: 7,
+  //   title: 'Seventh chapter - kłopoty to moja specjalność',
+  //   content:
+  //     'Nazajutrz prawie zapomniał o Gandalfie. Nigdy nie pamiętał zbyt dokładnie różnych rzeczy, jeśli ich nie zapisał w swoim kalendarzyku terminowym, na przykład tak: środa, herbata z Gandalfem. Poprzedniego dnia zanadto był podniecony, by o czymś takim pomyśleć.' +
+  //     `\nNext chapters TEHTH {10} ELEVENTH {11},\nlink to random distant {${Math.floor(Math.random() * (100 - 2)) + 100
+  //     }},\nlink to empty {}`,
+  //   status: {
+  //     fixed: true, //Math.random() < 0.1,
+  //     dead: Math.random() < 0.92 && Math.random() > 0.9,
+  //     win: Math.random() > 0.92,
+  //   },
+  // },
+]
 
 const arrayChapters = (amount) => Array.from({ length: amount }, (_, i) => {
   return {
@@ -134,7 +129,7 @@ const arrayChapters = (amount) => Array.from({ length: amount }, (_, i) => {
 
 export const chapters = [
   firstChapter,
-  // ...someChapters,
+  ...someChapters,
   // ...arrayChapters(3),
 ]
 

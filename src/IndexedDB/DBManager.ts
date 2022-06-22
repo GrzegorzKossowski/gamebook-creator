@@ -127,8 +127,8 @@ export class DBManager {
         const getRequest = store.get(id);
 
         getRequest.onerror = () =>
-        this.errorHandler(storeName, this.READ_OBJECT);
-        
+            this.errorHandler(storeName, this.READ_OBJECT);
+
         getRequest.onsuccess = () => {
             if (getRequest.result !== undefined) {
                 callback(getRequest.result);
